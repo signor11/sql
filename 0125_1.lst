@@ -1,0 +1,543 @@
+HR@orcl>SELECT employee_id, job_id
+  2  FROM employees
+  3  UNION
+  4  SELECT employee_id, job_id
+  5  FROM job_history;
+
+EMPLOYEE_ID JOB_ID                                                                                                      
+----------- ----------                                                                                                  
+        100 AD_PRES                                                                                                     
+        101 AC_ACCOUNT                                                                                                  
+        101 AC_MGR                                                                                                      
+        101 AD_VP                                                                                                       
+        102 AD_VP                                                                                                       
+        102 IT_PROG                                                                                                     
+        103 IT_PROG                                                                                                     
+        104 IT_PROG                                                                                                     
+        107 IT_PROG                                                                                                     
+        114 ST_CLERK                                                                                                    
+        122 ST_CLERK                                                                                                    
+
+EMPLOYEE_ID JOB_ID                                                                                                      
+----------- ----------                                                                                                  
+        124 ST_MAN                                                                                                      
+        141 ST_CLERK                                                                                                    
+        142 ST_CLERK                                                                                                    
+        143 ST_CLERK                                                                                                    
+        144 ST_CLERK                                                                                                    
+        149 SA_MAN                                                                                                      
+        174 SA_REP                                                                                                      
+        176 SA_MAN                                                                                                      
+        176 SA_REP                                                                                                      
+        178 SA_REP                                                                                                      
+        200 AC_ACCOUNT                                                                                                  
+
+EMPLOYEE_ID JOB_ID                                                                                                      
+----------- ----------                                                                                                  
+        200 AD_ASST                                                                                                     
+        201 MK_MAN                                                                                                      
+        201 MK_REP                                                                                                      
+        202 MK_REP                                                                                                      
+        205 AC_MGR                                                                                                      
+        206 AC_ACCOUNT                                                                                                  
+
+28 rows selected.
+
+HR@orcl>SELECT employee_id, job_id, department_id
+  2  FROM employees
+  3  UNION
+  4  SELECT employee_id, job_id, department_id
+  5  FROM job_history;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        100 AD_PRES               90                                                                                    
+        101 AC_ACCOUNT           110                                                                                    
+        101 AC_MGR               110                                                                                    
+        101 AD_VP                 90                                                                                    
+        102 AD_VP                 90                                                                                    
+        102 IT_PROG               60                                                                                    
+        103 IT_PROG               60                                                                                    
+        104 IT_PROG               60                                                                                    
+        107 IT_PROG               60                                                                                    
+        114 ST_CLERK              50                                                                                    
+        122 ST_CLERK              50                                                                                    
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        124 ST_MAN                50                                                                                    
+        141 ST_CLERK              50                                                                                    
+        142 ST_CLERK              50                                                                                    
+        143 ST_CLERK              50                                                                                    
+        144 ST_CLERK              50                                                                                    
+        149 SA_MAN                80                                                                                    
+        174 SA_REP                80                                                                                    
+        176 SA_MAN                80                                                                                    
+        176 SA_REP                80                                                                                    
+        178 SA_REP                                                                                                      
+        200 AC_ACCOUNT            90                                                                                    
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        200 AD_ASST               10                                                                                    
+        200 AD_ASST               90                                                                                    
+        201 MK_MAN                20                                                                                    
+        201 MK_REP                20                                                                                    
+        202 MK_REP                20                                                                                    
+        205 AC_MGR               110                                                                                    
+        206 AC_ACCOUNT           110                                                                                    
+
+29 rows selected.
+
+HR@orcl>SELECT employee_id, job_id, department_id
+  2  FROM employees
+  3  UNION ALL
+  4  SELECT employee_id, job_id, department_id
+  5  FROM job_history
+  6  ORDER BY employee_id;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        100 AD_PRES               90                                                                                    
+        101 AC_ACCOUNT           110                                                                                    
+        101 AD_VP                 90                                                                                    
+        101 AC_MGR               110                                                                                    
+        102 IT_PROG               60                                                                                    
+        102 AD_VP                 90                                                                                    
+        103 IT_PROG               60                                                                                    
+        104 IT_PROG               60                                                                                    
+        107 IT_PROG               60                                                                                    
+        114 ST_CLERK              50                                                                                    
+        122 ST_CLERK              50                                                                                    
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        124 ST_MAN                50                                                                                    
+        141 ST_CLERK              50                                                                                    
+        142 ST_CLERK              50                                                                                    
+        143 ST_CLERK              50                                                                                    
+        144 ST_CLERK              50                                                                                    
+        149 SA_MAN                80                                                                                    
+        174 SA_REP                80                                                                                    
+        176 SA_REP                80                                                                                    
+        176 SA_MAN                80                                                                                    
+        176 SA_REP                80                                                                                    
+        178 SA_REP                                                                                                      
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        200 AD_ASST               10                                                                                    
+        200 AD_ASST               90                                                                                    
+        200 AC_ACCOUNT            90                                                                                    
+        201 MK_MAN                20                                                                                    
+        201 MK_REP                20                                                                                    
+        202 MK_REP                20                                                                                    
+        205 AC_MGR               110                                                                                    
+        206 AC_ACCOUNT           110                                                                                    
+
+30 rows selected.
+
+HR@orcl>SELECT employee_id, job_id, department_id
+  2  FROM employees
+  3  UNION
+  4  SELECT employee_id, job_id, department_id
+  5  FROM job_history
+  6  ORDER BY employee_id;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        100 AD_PRES               90                                                                                    
+        101 AC_ACCOUNT           110                                                                                    
+        101 AC_MGR               110                                                                                    
+        101 AD_VP                 90                                                                                    
+        102 AD_VP                 90                                                                                    
+        102 IT_PROG               60                                                                                    
+        103 IT_PROG               60                                                                                    
+        104 IT_PROG               60                                                                                    
+        107 IT_PROG               60                                                                                    
+        114 ST_CLERK              50                                                                                    
+        122 ST_CLERK              50                                                                                    
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        124 ST_MAN                50                                                                                    
+        141 ST_CLERK              50                                                                                    
+        142 ST_CLERK              50                                                                                    
+        143 ST_CLERK              50                                                                                    
+        144 ST_CLERK              50                                                                                    
+        149 SA_MAN                80                                                                                    
+        174 SA_REP                80                                                                                    
+        176 SA_MAN                80                                                                                    
+        176 SA_REP                80                                                                                    
+        178 SA_REP                                                                                                      
+        200 AC_ACCOUNT            90                                                                                    
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                                                                    
+----------- ---------- -------------                                                                                    
+        200 AD_ASST               10                                                                                    
+        200 AD_ASST               90                                                                                    
+        201 MK_MAN                20                                                                                    
+        201 MK_REP                20                                                                                    
+        202 MK_REP                20                                                                                    
+        205 AC_MGR               110                                                                                    
+        206 AC_ACCOUNT           110                                                                                    
+
+29 rows selected.
+
+HR@orcl>SELECT employee_id FROM employees
+  2  INTERSECT
+  3  SELECT employee_id FROM job_history;
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        101                                                                                                             
+        102                                                                                                             
+        176                                                                                                             
+        200                                                                                                             
+        201                                                                                                             
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, job_id FROM employees
+  2  INTERSECT
+  3* SELECT employee_id, job_id  FROM job_history
+HR@orcl>/
+
+EMPLOYEE_ID JOB_ID                                                                                                      
+----------- ----------                                                                                                  
+        176 SA_REP                                                                                                      
+        200 AD_ASST                                                                                                     
+
+HR@orcl>SELECT employee_id FROM employees
+  2  MINUS
+  3  SELECT employee_id FROM job_history;
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        100                                                                                                             
+        103                                                                                                             
+        104                                                                                                             
+        107                                                                                                             
+        124                                                                                                             
+        141                                                                                                             
+        142                                                                                                             
+        143                                                                                                             
+        144                                                                                                             
+        149                                                                                                             
+        174                                                                                                             
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        178                                                                                                             
+        202                                                                                                             
+        205                                                                                                             
+        206                                                                                                             
+
+15 rows selected.
+
+HR@orcl>ed\
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id FROM employees
+  2  MINUS
+  3* SELECT employee_id FROM job_history
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id FROM job_history
+  2  MINUS
+  3* SELECT employee_id FROM employees
+HR@orcl>/
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        114                                                                                                             
+        122                                                                                                             
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id FROM job_history
+  2  MINUS
+  3* SELECT employee_id FROM employees
+HR@orcl>/
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        114                                                                                                             
+        122                                                                                                             
+
+HR@orcl>SELECT employee_id, department_name, hire_date
+  2  FROM employees
+  3  UNION
+  4  SELECT department_id, department_name, hire_date
+  5  FROM departements;
+SELECT employee_id, department_name, hire_date
+                    *
+ERROR at line 1:
+ORA-00904: "DEPARTMENT_NAME": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, TO_CHAR(null) department_name, hire_date
+  2  FROM employees
+  3  UNION
+  4  SELECT department_id, department_name, TO_DATE(null)
+  5* FROM departements
+HR@orcl>/
+FROM departements
+     *
+ERROR at line 5:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, TO_CHAR(null) department_name, hire_date
+  2  FROM employees
+  3  UNION
+  4  SELECT department_id, department_name, TO_DATE(null)
+  5* FROM departements
+HR@orcl>/\
+FROM departements
+     *
+ERROR at line 5:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, TO_CHAR(null) department_name, hire_date
+  2  FROM employees
+  3  UNION
+  4  SELECT department_id, department_name, TO_DATE(null)
+  5* FROM departments
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+         10 Administration                                                                                              
+         20 Marketing                                                                                                   
+         50 Shipping                                                                                                    
+         60 IT                                                                                                          
+         80 Sales                                                                                                       
+         90 Executive                                                                                                   
+        100                                17-JUN-87                                                                    
+        101                                21-SEP-89                                                                    
+        102                                13-JAN-93                                                                    
+        103                                03-JAN-90                                                                    
+        104                                21-MAY-91                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        107                                07-FEB-99                                                                    
+        110 Accounting                                                                                                  
+        124                                16-NOV-99                                                                    
+        141                                17-OCT-95                                                                    
+        142                                29-JAN-97                                                                    
+        143                                15-MAR-98                                                                    
+        144                                09-JUL-98                                                                    
+        149                                29-JAN-00                                                                    
+        174                                11-MAY-96                                                                    
+        176                                24-MAR-98                                                                    
+        178                                24-MAY-99                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        190 Contracting                                                                                                 
+        200                                17-SEP-87                                                                    
+        201                                17-FEB-96                                                                    
+        202                                17-AUG-97                                                                    
+        205                                07-JUN-94                                                                    
+        206                                07-JUN-94                                                                    
+
+28 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, TO_CHAR(null) department_name, hire_date, 2 aaa
+  2  FROM employees
+  3  UNION
+  4  SELECT department_id, department_name, TO_DATE(null), 1
+  5  FROM departments
+  6* ORDER BY 4
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE        AAA                                                         
+----------- ------------------------------ --------- ----------                                                         
+         10 Administration                                    1                                                         
+         20 Marketing                                         1                                                         
+         50 Shipping                                          1                                                         
+         60 IT                                                1                                                         
+         80 Sales                                             1                                                         
+         90 Executive                                         1                                                         
+        110 Accounting                                        1                                                         
+        190 Contracting                                       1                                                         
+        100                                17-JUN-87          2                                                         
+        101                                21-SEP-89          2                                                         
+        102                                13-JAN-93          2                                                         
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE        AAA                                                         
+----------- ------------------------------ --------- ----------                                                         
+        103                                03-JAN-90          2                                                         
+        104                                21-MAY-91          2                                                         
+        107                                07-FEB-99          2                                                         
+        124                                16-NOV-99          2                                                         
+        141                                17-OCT-95          2                                                         
+        142                                29-JAN-97          2                                                         
+        143                                15-MAR-98          2                                                         
+        144                                09-JUL-98          2                                                         
+        149                                29-JAN-00          2                                                         
+        174                                11-MAY-96          2                                                         
+        176                                24-MAR-98          2                                                         
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE        AAA                                                         
+----------- ------------------------------ --------- ----------                                                         
+        178                                24-MAY-99          2                                                         
+        200                                17-SEP-87          2                                                         
+        201                                17-FEB-96          2                                                         
+        202                                17-AUG-97          2                                                         
+        205                                07-JUN-94          2                                                         
+        206                                07-JUN-94          2                                                         
+
+28 rows selected.
+
+HR@orcl>col AAA noprint
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+         10 Administration                                                                                              
+         20 Marketing                                                                                                   
+         50 Shipping                                                                                                    
+         60 IT                                                                                                          
+         80 Sales                                                                                                       
+         90 Executive                                                                                                   
+        110 Accounting                                                                                                  
+        190 Contracting                                                                                                 
+        100                                17-JUN-87                                                                    
+        101                                21-SEP-89                                                                    
+        102                                13-JAN-93                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        103                                03-JAN-90                                                                    
+        104                                21-MAY-91                                                                    
+        107                                07-FEB-99                                                                    
+        124                                16-NOV-99                                                                    
+        141                                17-OCT-95                                                                    
+        142                                29-JAN-97                                                                    
+        143                                15-MAR-98                                                                    
+        144                                09-JUL-98                                                                    
+        149                                29-JAN-00                                                                    
+        174                                11-MAY-96                                                                    
+        176                                24-MAR-98                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        178                                24-MAY-99                                                                    
+        200                                17-SEP-87                                                                    
+        201                                17-FEB-96                                                                    
+        202                                17-AUG-97                                                                    
+        205                                07-JUN-94                                                                    
+        206                                07-JUN-94                                                                    
+
+28 rows selected.
+
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+         10 Administration                                                                                              
+         20 Marketing                                                                                                   
+         50 Shipping                                                                                                    
+         60 IT                                                                                                          
+         80 Sales                                                                                                       
+         90 Executive                                                                                                   
+        110 Accounting                                                                                                  
+        190 Contracting                                                                                                 
+        100                                17-JUN-87                                                                    
+        101                                21-SEP-89                                                                    
+        102                                13-JAN-93                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        103                                03-JAN-90                                                                    
+        104                                21-MAY-91                                                                    
+        107                                07-FEB-99                                                                    
+        124                                16-NOV-99                                                                    
+        141                                17-OCT-95                                                                    
+        142                                29-JAN-97                                                                    
+        143                                15-MAR-98                                                                    
+        144                                09-JUL-98                                                                    
+        149                                29-JAN-00                                                                    
+        174                                11-MAY-96                                                                    
+        176                                24-MAR-98                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                HIRE_DATE                                                                    
+----------- ------------------------------ ---------                                                                    
+        178                                24-MAY-99                                                                    
+        200                                17-SEP-87                                                                    
+        201                                17-FEB-96                                                                    
+        202                                17-AUG-97                                                                    
+        205                                07-JUN-94                                                                    
+        206                                07-JUN-94                                                                    
+
+28 rows selected.
+
+HR@orcl>SELECT employee_id, job_id, salary
+  2  FROM employees
+  3  UNION
+  4  SELECT employee_id, job_id, 0
+  5  FROM job_history;
+
+EMPLOYEE_ID JOB_ID         SALARY                                                                                       
+----------- ---------- ----------                                                                                       
+        100 AD_PRES         24000                                                                                       
+        101 AC_ACCOUNT          0                                                                                       
+        101 AC_MGR              0                                                                                       
+        101 AD_VP           17000                                                                                       
+        102 AD_VP           17000                                                                                       
+        102 IT_PROG             0                                                                                       
+        103 IT_PROG          9000                                                                                       
+        104 IT_PROG          6000                                                                                       
+        107 IT_PROG          4200                                                                                       
+        114 ST_CLERK            0                                                                                       
+        122 ST_CLERK            0                                                                                       
+
+EMPLOYEE_ID JOB_ID         SALARY                                                                                       
+----------- ---------- ----------                                                                                       
+        124 ST_MAN           5800                                                                                       
+        141 ST_CLERK         3500                                                                                       
+        142 ST_CLERK         3100                                                                                       
+        143 ST_CLERK         2600                                                                                       
+        144 ST_CLERK         2500                                                                                       
+        149 SA_MAN          10500                                                                                       
+        174 SA_REP          11000                                                                                       
+        176 SA_MAN              0                                                                                       
+        176 SA_REP              0                                                                                       
+        176 SA_REP           8600                                                                                       
+        178 SA_REP           7000                                                                                       
+
+EMPLOYEE_ID JOB_ID         SALARY                                                                                       
+----------- ---------- ----------                                                                                       
+        200 AC_ACCOUNT          0                                                                                       
+        200 AD_ASST             0                                                                                       
+        200 AD_ASST          4400                                                                                       
+        201 MK_MAN          13000                                                                                       
+        201 MK_REP              0                                                                                       
+        202 MK_REP           6000                                                                                       
+        205 AC_MGR          12000                                                                                       
+        206 AC_ACCOUNT       8300                                                                                       
+
+30 rows selected.
+
+HR@orcl>exit

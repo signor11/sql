@@ -1,0 +1,1 @@
+HR@orcl>spool 0123_1.txt

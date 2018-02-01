@@ -1,0 +1,1580 @@
+HR@orcl>SELECT employee_id, last_name, department_id, department_name
+  2  FROM employees JOIN departments
+  3  USING (department_id);
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        103 Hunold                               60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        124 Mourgos                              50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        149 Zlotkey                              80 Sales                                                               
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        205 Higgins                             110 Accounting                                                          
+        206 Gietz                               110 Accounting                                                          
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, department_name
+  2  FROM employees JOIN departments
+  3* USING (department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_NAME                                                                   
+----------- ------------------------- ------------------------------                                                    
+        100 King                      Executive                                                                         
+        101 Kochhar                   Executive                                                                         
+        102 De Haan                   Executive                                                                         
+        103 Hunold                    IT                                                                                
+        104 Ernst                     IT                                                                                
+        107 Lorentz                   IT                                                                                
+        124 Mourgos                   Shipping                                                                          
+        141 Rajs                      Shipping                                                                          
+        142 Davies                    Shipping                                                                          
+        143 Matos                     Shipping                                                                          
+        144 Vargas                    Shipping                                                                          
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_NAME                                                                   
+----------- ------------------------- ------------------------------                                                    
+        149 Zlotkey                   Sales                                                                             
+        174 Abel                      Sales                                                                             
+        176 Taylor                    Sales                                                                             
+        200 Whalen                    Administration                                                                    
+        201 Hartstein                 Marketing                                                                         
+        202 Fay                       Marketing                                                                         
+        205 Higgins                   Accounting                                                                        
+        206 Gietz                     Accounting                                                                        
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, department_id, department_name
+  2  FROM employees JOIN departments
+  3* USING (department_id)
+HR@orcl>desc departments
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ DEPARTMENT_ID                                                     NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                                                   NOT NULL VARCHAR2(30)
+ MANAGER_ID                                                                 NUMBER(6)
+ LOCATION_ID                                                                NUMBER(4)
+
+HR@orcl>desc locations
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ LOCATION_ID                                                       NOT NULL NUMBER(4)
+ STREET_ADDRESS                                                             VARCHAR2(40)
+ POSTAL_CODE                                                                VARCHAR2(12)
+ CITY                                                              NOT NULL VARCHAR2(30)
+ STATE_PROVINCE                                                             VARCHAR2(25)
+ COUNTRY_ID                                                                 CHAR(2)
+
+HR@orcl>SELECT department_id, department_name, city
+  2  from departments JOIN locations
+  3  USING (location_id)
+  4  /
+
+DEPARTMENT_ID DEPARTMENT_NAME                CITY                                                                       
+------------- ------------------------------ ------------------------------                                             
+           10 Administration                 Seattle                                                                    
+           20 Marketing                      Toronto                                                                    
+           50 Shipping                       South San Francisco                                                        
+           60 IT                             Southlake                                                                  
+           80 Sales                          Oxford                                                                     
+           90 Executive                      Seattle                                                                    
+          110 Accounting                     Seattle                                                                    
+          190 Contracting                    Seattle                                                                    
+
+8 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT department_id, department_name, city
+  2* from departments NATURAL JOIN locations
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT department_id, department_name, city
+  2* from departments NATURAL JOIN locations 
+HR@orcl>
+HR@orcl>/
+
+DEPARTMENT_ID DEPARTMENT_NAME                CITY                                                                       
+------------- ------------------------------ ------------------------------                                             
+           10 Administration                 Seattle                                                                    
+           20 Marketing                      Toronto                                                                    
+           50 Shipping                       South San Francisco                                                        
+           60 IT                             Southlake                                                                  
+           80 Sales                          Oxford                                                                     
+           90 Executive                      Seattle                                                                    
+          110 Accounting                     Seattle                                                                    
+          190 Contracting                    Seattle                                                                    
+
+8 rows selected.
+
+HR@orcl>SELECT employee_id, last_name, department_id, department_name
+  2  from employees NATURAL JOIN  departments;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        202 Fay                                  20 Marketing                                                           
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        206 Gietz                               110 Accounting                                                          
+
+12 rows selected.
+
+HR@orcl>desc employees
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, employees.department_id, department_name
+  2  from employees JOIN  departments
+  3* ON (employees.department_id = departments.department_id)--두테이블에 컬럼 이름이 다른 경우 쓸 수 있다 대신 위쪽도 바꿔준다
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        103 Hunold                               60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        124 Mourgos                              50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        149 Zlotkey                              80 Sales                                                               
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        205 Higgins                             110 Accounting                                                          
+        206 Gietz                               110 Accounting                                                          
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employees.employee_id, employees.last_name, employees.department_id, departments.department_name
+  2  from employees JOIN  departments
+  3* ON (employees.department_id = departments.department_id)
+HR@orcl>/\
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        103 Hunold                               60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        124 Mourgos                              50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        149 Zlotkey                              80 Sales                                                               
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        205 Higgins                             110 Accounting                                                          
+        206 Gietz                               110 Accounting                                                          
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  from employees e JOIN  departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        103 Hunold                               60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        124 Mourgos                              50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        149 Zlotkey                              80 Sales                                                               
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        205 Higgins                             110 Accounting                                                          
+        206 Gietz                               110 Accounting                                                          
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  from employees e JOIN  departments d
+  3* ON (emp.department_id = dep.department_id)
+HR@orcl>/
+ON (emp.department_id = dep.department_id)
+                        *
+ERROR at line 3:
+ORA-00904: "DEP"."DEPARTMENT_ID": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  from employees e JOIN  departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>SELECT * FROM job_grades;
+
+GRA LOWEST_SAL HIGHEST_SAL                                                                                              
+--- ---------- -----------                                                                                              
+A         1000        2999                                                                                              
+B         3000        5999                                                                                              
+C         6000        9999                                                                                              
+D        10000       14999                                                                                              
+E        15000       24999                                                                                              
+F        25000       40000                                                                                              
+
+6 rows selected.
+
+HR@orcl>SELECT e.employee_id, e.last_name, e.salary, j.grade_level
+  2  FROM employees e JOIN job_grades j]
+  3  ON (e.salary BETWEEN j.lowest_sal AND j.highest_sal);
+FROM employees e JOIN job_grades j]
+                                  *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.salary, j.grade_level
+  2  FROM employees e JOIN job_grades j
+  3* ON (e.salary BETWEEN j.lowest_sal AND j.highest_sal)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                     SALARY GRA                                                                    
+----------- ------------------------- ---------- ---                                                                    
+        144 Vargas                          2500 A                                                                      
+        143 Matos                           2600 A                                                                      
+        142 Davies                          3100 B                                                                      
+        141 Rajs                            3500 B                                                                      
+        107 Lorentz                         4200 B                                                                      
+        200 Whalen                          4400 B                                                                      
+        124 Mourgos                         5800 B                                                                      
+        104 Ernst                           6000 C                                                                      
+        202 Fay                             6000 C                                                                      
+        178 Grant                           7000 C                                                                      
+        206 Gietz                           8300 C                                                                      
+
+EMPLOYEE_ID LAST_NAME                     SALARY GRA                                                                    
+----------- ------------------------- ---------- ---                                                                    
+        176 Taylor                          8600 C                                                                      
+        103 Hunold                          9000 C                                                                      
+        149 Zlotkey                        10500 D                                                                      
+        174 Abel                           11000 D                                                                      
+        205 Higgins                        12000 D                                                                      
+        201 Hartstein                      13000 D                                                                      
+        101 Kochhar                        17000 E                                                                      
+        102 De Haan                        17000 E                                                                      
+        100 King                           24000 E                                                                      
+
+20 rows selected.
+
+HR@orcl>
+HR@orcl>
+HR@orcl>
+HR@orcl>SELECT employee_id, last_name, manager_id FROM employees;
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID                                                                        
+----------- ------------------------- ----------                                                                        
+        100 King                                                                                                        
+        101 Kochhar                          100                                                                        
+        102 De Haan                          100                                                                        
+        103 Hunold                           102                                                                        
+        104 Ernst                            103                                                                        
+        107 Lorentz                          103                                                                        
+        124 Mourgos                          100                                                                        
+        141 Rajs                             124                                                                        
+        142 Davies                           124                                                                        
+        143 Matos                            124                                                                        
+        144 Vargas                           124                                                                        
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID                                                                        
+----------- ------------------------- ----------                                                                        
+        149 Zlotkey                          100                                                                        
+        174 Abel                             149                                                                        
+        176 Taylor                           149                                                                        
+        178 Grant                            149                                                                        
+        200 Whalen                           101                                                                        
+        201 Hartstein                        100                                                                        
+        202 Fay                              201                                                                        
+        205 Higgins                          101                                                                        
+        206 Gietz                            205                                                                        
+
+20 rows selected.
+
+HR@orcl>SELECT e.employee_id, e.last_name, e.manager_id, m.last_name
+  2  FROM employees e JOIN employees m
+  3  ON (e.manager_id = m.employee_id);
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        101 Kochhar                          100 King                                                                   
+        102 De Haan                          100 King                                                                   
+        103 Hunold                           102 De Haan                                                                
+        104 Ernst                            103 Hunold                                                                 
+        107 Lorentz                          103 Hunold                                                                 
+        124 Mourgos                          100 King                                                                   
+        141 Rajs                             124 Mourgos                                                                
+        142 Davies                           124 Mourgos                                                                
+        143 Matos                            124 Mourgos                                                                
+        144 Vargas                           124 Mourgos                                                                
+        149 Zlotkey                          100 King                                                                   
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        174 Abel                             149 Zlotkey                                                                
+        176 Taylor                           149 Zlotkey                                                                
+        178 Grant                            149 Zlotkey                                                                
+        200 Whalen                           101 Kochhar                                                                
+        201 Hartstein                        100 King                                                                   
+        202 Fay                              201 Hartstein                                                              
+        205 Higgins                          101 Kochhar                                                                
+        206 Gietz                            205 Higgins                                                                
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, m.last_name
+  2  FROM employees e JOIN employees m
+  3* ON (e.manager_id = m.employee_id)--on,equi,self join
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        101 Kochhar                          100 King                                                                   
+        102 De Haan                          100 King                                                                   
+        103 Hunold                           102 De Haan                                                                
+        104 Ernst                            103 Hunold                                                                 
+        107 Lorentz                          103 Hunold                                                                 
+        124 Mourgos                          100 King                                                                   
+        141 Rajs                             124 Mourgos                                                                
+        142 Davies                           124 Mourgos                                                                
+        143 Matos                            124 Mourgos                                                                
+        144 Vargas                           124 Mourgos                                                                
+        149 Zlotkey                          100 King                                                                   
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        174 Abel                             149 Zlotkey                                                                
+        176 Taylor                           149 Zlotkey                                                                
+        178 Grant                            149 Zlotkey                                                                
+        200 Whalen                           101 Kochhar                                                                
+        201 Hartstein                        100 King                                                                   
+        202 Fay                              201 Hartstein                                                              
+        205 Higgins                          101 Kochhar                                                                
+        206 Gietz                            205 Higgins                                                                
+
+19 rows selected.
+
+HR@orcl>
+HR@orcl>
+HR@orcl>
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, m.last_name
+  2  FROM employees e LEFT OUTER JOIN employees m
+  3* ON (e.manager_id = m.employee_id)--on,equi,self join
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        100 King                                                                                                        
+        101 Kochhar                          100 King                                                                   
+        102 De Haan                          100 King                                                                   
+        103 Hunold                           102 De Haan                                                                
+        104 Ernst                            103 Hunold                                                                 
+        107 Lorentz                          103 Hunold                                                                 
+        124 Mourgos                          100 King                                                                   
+        141 Rajs                             124 Mourgos                                                                
+        142 Davies                           124 Mourgos                                                                
+        143 Matos                            124 Mourgos                                                                
+        144 Vargas                           124 Mourgos                                                                
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        149 Zlotkey                          100 King                                                                   
+        174 Abel                             149 Zlotkey                                                                
+        176 Taylor                           149 Zlotkey                                                                
+        178 Grant                            149 Zlotkey                                                                
+        200 Whalen                           101 Kochhar                                                                
+        201 Hartstein                        100 King                                                                   
+        202 Fay                              201 Hartstein                                                              
+        205 Higgins                          101 Kochhar                                                                
+        206 Gietz                            205 Higgins                                                                
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, m.last_name
+  2  FROM employees e LEFT OUTER JOIN employees m
+  3* ON (e.manager_id = m.employee_id)--on,equi,self join,outer join
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        100 King                                                                                                        
+        101 Kochhar                          100 King                                                                   
+        102 De Haan                          100 King                                                                   
+        103 Hunold                           102 De Haan                                                                
+        104 Ernst                            103 Hunold                                                                 
+        107 Lorentz                          103 Hunold                                                                 
+        124 Mourgos                          100 King                                                                   
+        141 Rajs                             124 Mourgos                                                                
+        142 Davies                           124 Mourgos                                                                
+        143 Matos                            124 Mourgos                                                                
+        144 Vargas                           124 Mourgos                                                                
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID LAST_NAME                                                              
+----------- ------------------------- ---------- -------------------------                                              
+        149 Zlotkey                          100 King                                                                   
+        174 Abel                             149 Zlotkey                                                                
+        176 Taylor                           149 Zlotkey                                                                
+        178 Grant                            149 Zlotkey                                                                
+        200 Whalen                           101 Kochhar                                                                
+        201 Hartstein                        100 King                                                                   
+        202 Fay                              201 Hartstein                                                              
+        205 Higgins                          101 Kochhar                                                                
+        206 Gietz                            205 Higgins                                                                
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, d.department_name
+  2  FROM employees e JOIN department d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+FROM employees e JOIN department d
+                      *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, d.department_name
+  2  FROM employees e JOIN departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        100 King                                 Executive                                                              
+        101 Kochhar                          100 Executive                                                              
+        102 De Haan                          100 Executive                                                              
+        103 Hunold                           102 IT                                                                     
+        104 Ernst                            103 IT                                                                     
+        107 Lorentz                          103 IT                                                                     
+        124 Mourgos                          100 Shipping                                                               
+        141 Rajs                             124 Shipping                                                               
+        142 Davies                           124 Shipping                                                               
+        143 Matos                            124 Shipping                                                               
+        144 Vargas                           124 Shipping                                                               
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        149 Zlotkey                          100 Sales                                                                  
+        174 Abel                             149 Sales                                                                  
+        176 Taylor                           149 Sales                                                                  
+        200 Whalen                           101 Administration                                                         
+        201 Hartstein                        100 Marketing                                                              
+        202 Fay                              201 Marketing                                                              
+        205 Higgins                          101 Accounting                                                             
+        206 Gietz                            205 Accounting                                                             
+
+19 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, d.department_name
+  2  FROM employees e LEFT OUTER JOIN departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        100 King                                 Executive                                                              
+        101 Kochhar                          100 Executive                                                              
+        102 De Haan                          100 Executive                                                              
+        103 Hunold                           102 IT                                                                     
+        104 Ernst                            103 IT                                                                     
+        107 Lorentz                          103 IT                                                                     
+        124 Mourgos                          100 Shipping                                                               
+        141 Rajs                             124 Shipping                                                               
+        142 Davies                           124 Shipping                                                               
+        143 Matos                            124 Shipping                                                               
+        144 Vargas                           124 Shipping                                                               
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        149 Zlotkey                          100 Sales                                                                  
+        174 Abel                             149 Sales                                                                  
+        176 Taylor                           149 Sales                                                                  
+        178 Grant                            149                                                                        
+        200 Whalen                           101 Administration                                                         
+        201 Hartstein                        100 Marketing                                                              
+        202 Fay                              201 Marketing                                                              
+        205 Higgins                          101 Accounting                                                             
+        206 Gietz                            205 Accounting                                                             
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.manager_id, d.department_name
+  2  FROM employees e RIGHT OUTER JOIN departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        200 Whalen                           101 Administration                                                         
+        201 Hartstein                        100 Marketing                                                              
+        202 Fay                              201 Marketing                                                              
+        124 Mourgos                          100 Shipping                                                               
+        144 Vargas                           124 Shipping                                                               
+        143 Matos                            124 Shipping                                                               
+        142 Davies                           124 Shipping                                                               
+        141 Rajs                             124 Shipping                                                               
+        107 Lorentz                          103 IT                                                                     
+        104 Ernst                            103 IT                                                                     
+        103 Hunold                           102 IT                                                                     
+
+EMPLOYEE_ID LAST_NAME                 MANAGER_ID DEPARTMENT_NAME                                                        
+----------- ------------------------- ---------- ------------------------------                                         
+        174 Abel                             149 Sales                                                                  
+        149 Zlotkey                          100 Sales                                                                  
+        176 Taylor                           149 Sales                                                                  
+        102 De Haan                          100 Executive                                                              
+        100 King                                 Executive                                                              
+        101 Kochhar                          100 Executive                                                              
+        206 Gietz                            205 Accounting                                                             
+        205 Higgins                          101 Accounting                                                             
+                                                 Contracting                                                            
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  FROM employees e RIGHT OUTER JOIN departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        124 Mourgos                              50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        107 Lorentz                              60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        103 Hunold                               60 IT                                                                  
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        174 Abel                                 80 Sales                                                               
+        149 Zlotkey                              80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        102 De Haan                              90 Executive                                                           
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        206 Gietz                               110 Accounting                                                          
+        205 Higgins                             110 Accounting                                                          
+                                                    Contracting                                                         
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  FROM employees e FULL OUTER JOIN departments d
+  3* ON (e.department_id = d.department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        100 King                                 90 Executive                                                           
+        101 Kochhar                              90 Executive                                                           
+        102 De Haan                              90 Executive                                                           
+        103 Hunold                               60 IT                                                                  
+        104 Ernst                                60 IT                                                                  
+        107 Lorentz                              60 IT                                                                  
+        124 Mourgos                              50 Shipping                                                            
+        141 Rajs                                 50 Shipping                                                            
+        142 Davies                               50 Shipping                                                            
+        143 Matos                                50 Shipping                                                            
+        144 Vargas                               50 Shipping                                                            
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        149 Zlotkey                              80 Sales                                                               
+        174 Abel                                 80 Sales                                                               
+        176 Taylor                               80 Sales                                                               
+        178 Grant                                                                                                       
+        200 Whalen                               10 Administration                                                      
+        201 Hartstein                            20 Marketing                                                           
+        202 Fay                                  20 Marketing                                                           
+        205 Higgins                             110 Accounting                                                          
+        206 Gietz                               110 Accounting                                                          
+                                                    Contracting                                                         
+
+21 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT e.employee_id, e.last_name, e.department_id, d.department_name
+  2  FROM employees e FULL OUTER JOIN departments d
+  3  ON (e.department_id = d.department_id)
+  4* WHERE job_id LIKE '%MAN%'
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID DEPARTMENT_NAME                                                     
+----------- ------------------------- ------------- ------------------------------                                      
+        124 Mourgos                              50 Shipping                                                            
+        149 Zlotkey                              80 Sales                                                               
+        201 Hartstein                            20 Marketing                                                           
+
+HR@orcl>cle scr
+HR@orcl>SELECT employee_id, department_name, city
+  2  FROM employees e JOIN departments d
+  3  ON e.department_id = d.department_id
+  4  JOIN locations
+  5  ON d.location_id = l.location_id;
+ON d.location_id = l.location_id
+                   *
+ERROR at line 5:
+ORA-00904: "L"."LOCATION_ID": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, department_name, city
+  2  FROM employees e JOIN departments d
+  3  ON e.department_id = d.department_id
+  4  JOIN locations l
+  5* ON d.location_id = l.location_id
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_NAME                CITY                                                                         
+----------- ------------------------------ ------------------------------                                               
+        200 Administration                 Seattle                                                                      
+        201 Marketing                      Toronto                                                                      
+        202 Marketing                      Toronto                                                                      
+        124 Shipping                       South San Francisco                                                          
+        141 Shipping                       South San Francisco                                                          
+        142 Shipping                       South San Francisco                                                          
+        143 Shipping                       South San Francisco                                                          
+        144 Shipping                       South San Francisco                                                          
+        103 IT                             Southlake                                                                    
+        104 IT                             Southlake                                                                    
+        107 IT                             Southlake                                                                    
+
+EMPLOYEE_ID DEPARTMENT_NAME                CITY                                                                         
+----------- ------------------------------ ------------------------------                                               
+        149 Sales                          Oxford                                                                       
+        174 Sales                          Oxford                                                                       
+        176 Sales                          Oxford                                                                       
+        100 Executive                      Seattle                                                                      
+        101 Executive                      Seattle                                                                      
+        102 Executive                      Seattle                                                                      
+        205 Accounting                     Seattle                                                                      
+        206 Accounting                     Seattle                                                                      
+
+19 rows selected.
+
+HR@orcl>
+HR@orcl>
+HR@orcl>SELECT last_name, department_name
+  2  FROM employees CROSS JOIN departments;
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Abel                      Administration                                                                                
+Davies                    Administration                                                                                
+De Haan                   Administration                                                                                
+Ernst                     Administration                                                                                
+Fay                       Administration                                                                                
+Gietz                     Administration                                                                                
+Grant                     Administration                                                                                
+Hartstein                 Administration                                                                                
+Higgins                   Administration                                                                                
+Hunold                    Administration                                                                                
+King                      Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Kochhar                   Administration                                                                                
+Lorentz                   Administration                                                                                
+Matos                     Administration                                                                                
+Mourgos                   Administration                                                                                
+Rajs                      Administration                                                                                
+Taylor                    Administration                                                                                
+Vargas                    Administration                                                                                
+Whalen                    Administration                                                                                
+Zlotkey                   Administration                                                                                
+Abel                      Marketing                                                                                     
+Davies                    Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+De Haan                   Marketing                                                                                     
+Ernst                     Marketing                                                                                     
+Fay                       Marketing                                                                                     
+Gietz                     Marketing                                                                                     
+Grant                     Marketing                                                                                     
+Hartstein                 Marketing                                                                                     
+Higgins                   Marketing                                                                                     
+Hunold                    Marketing                                                                                     
+King                      Marketing                                                                                     
+Kochhar                   Marketing                                                                                     
+Lorentz                   Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Matos                     Marketing                                                                                     
+Mourgos                   Marketing                                                                                     
+Rajs                      Marketing                                                                                     
+Taylor                    Marketing                                                                                     
+Vargas                    Marketing                                                                                     
+Whalen                    Marketing                                                                                     
+Zlotkey                   Marketing                                                                                     
+Abel                      Shipping                                                                                      
+Davies                    Shipping                                                                                      
+De Haan                   Shipping                                                                                      
+Ernst                     Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Fay                       Shipping                                                                                      
+Gietz                     Shipping                                                                                      
+Grant                     Shipping                                                                                      
+Hartstein                 Shipping                                                                                      
+Higgins                   Shipping                                                                                      
+Hunold                    Shipping                                                                                      
+King                      Shipping                                                                                      
+Kochhar                   Shipping                                                                                      
+Lorentz                   Shipping                                                                                      
+Matos                     Shipping                                                                                      
+Mourgos                   Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Rajs                      Shipping                                                                                      
+Taylor                    Shipping                                                                                      
+Vargas                    Shipping                                                                                      
+Whalen                    Shipping                                                                                      
+Zlotkey                   Shipping                                                                                      
+Abel                      IT                                                                                            
+Davies                    IT                                                                                            
+De Haan                   IT                                                                                            
+Ernst                     IT                                                                                            
+Fay                       IT                                                                                            
+Gietz                     IT                                                                                            
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Grant                     IT                                                                                            
+Hartstein                 IT                                                                                            
+Higgins                   IT                                                                                            
+Hunold                    IT                                                                                            
+King                      IT                                                                                            
+Kochhar                   IT                                                                                            
+Lorentz                   IT                                                                                            
+Matos                     IT                                                                                            
+Mourgos                   IT                                                                                            
+Rajs                      IT                                                                                            
+Taylor                    IT                                                                                            
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Vargas                    IT                                                                                            
+Whalen                    IT                                                                                            
+Zlotkey                   IT                                                                                            
+Abel                      Sales                                                                                         
+Davies                    Sales                                                                                         
+De Haan                   Sales                                                                                         
+Ernst                     Sales                                                                                         
+Fay                       Sales                                                                                         
+Gietz                     Sales                                                                                         
+Grant                     Sales                                                                                         
+Hartstein                 Sales                                                                                         
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Higgins                   Sales                                                                                         
+Hunold                    Sales                                                                                         
+King                      Sales                                                                                         
+Kochhar                   Sales                                                                                         
+Lorentz                   Sales                                                                                         
+Matos                     Sales                                                                                         
+Mourgos                   Sales                                                                                         
+Rajs                      Sales                                                                                         
+Taylor                    Sales                                                                                         
+Vargas                    Sales                                                                                         
+Whalen                    Sales                                                                                         
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Zlotkey                   Sales                                                                                         
+Abel                      Executive                                                                                     
+Davies                    Executive                                                                                     
+De Haan                   Executive                                                                                     
+Ernst                     Executive                                                                                     
+Fay                       Executive                                                                                     
+Gietz                     Executive                                                                                     
+Grant                     Executive                                                                                     
+Hartstein                 Executive                                                                                     
+Higgins                   Executive                                                                                     
+Hunold                    Executive                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+King                      Executive                                                                                     
+Kochhar                   Executive                                                                                     
+Lorentz                   Executive                                                                                     
+Matos                     Executive                                                                                     
+Mourgos                   Executive                                                                                     
+Rajs                      Executive                                                                                     
+Taylor                    Executive                                                                                     
+Vargas                    Executive                                                                                     
+Whalen                    Executive                                                                                     
+Zlotkey                   Executive                                                                                     
+Abel                      Accounting                                                                                    
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Davies                    Accounting                                                                                    
+De Haan                   Accounting                                                                                    
+Ernst                     Accounting                                                                                    
+Fay                       Accounting                                                                                    
+Gietz                     Accounting                                                                                    
+Grant                     Accounting                                                                                    
+Hartstein                 Accounting                                                                                    
+Higgins                   Accounting                                                                                    
+Hunold                    Accounting                                                                                    
+King                      Accounting                                                                                    
+Kochhar                   Accounting                                                                                    
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Lorentz                   Accounting                                                                                    
+Matos                     Accounting                                                                                    
+Mourgos                   Accounting                                                                                    
+Rajs                      Accounting                                                                                    
+Taylor                    Accounting                                                                                    
+Vargas                    Accounting                                                                                    
+Whalen                    Accounting                                                                                    
+Zlotkey                   Accounting                                                                                    
+Abel                      Contracting                                                                                   
+Davies                    Contracting                                                                                   
+De Haan                   Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Ernst                     Contracting                                                                                   
+Fay                       Contracting                                                                                   
+Gietz                     Contracting                                                                                   
+Grant                     Contracting                                                                                   
+Hartstein                 Contracting                                                                                   
+Higgins                   Contracting                                                                                   
+Hunold                    Contracting                                                                                   
+King                      Contracting                                                                                   
+Kochhar                   Contracting                                                                                   
+Lorentz                   Contracting                                                                                   
+Matos                     Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Mourgos                   Contracting                                                                                   
+Rajs                      Contracting                                                                                   
+Taylor                    Contracting                                                                                   
+Vargas                    Contracting                                                                                   
+Whalen                    Contracting                                                                                   
+Zlotkey                   Contracting                                                                                   
+
+160 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT last_name, department_name
+  2  FROM employees CROSS JOIN departments
+  3* ORDER BY 
+HR@orcl>/
+ORDER BY 
+        *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT last_name, department_name
+  2  FROM employees CROSS JOIN departments
+  3* ORDER BY 2 
+HR@orcl>/
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Whalen                    Accounting                                                                                    
+Zlotkey                   Accounting                                                                                    
+Taylor                    Accounting                                                                                    
+Rajs                      Accounting                                                                                    
+Mourgos                   Accounting                                                                                    
+Matos                     Accounting                                                                                    
+Lorentz                   Accounting                                                                                    
+Kochhar                   Accounting                                                                                    
+King                      Accounting                                                                                    
+Hunold                    Accounting                                                                                    
+Higgins                   Accounting                                                                                    
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Hartstein                 Accounting                                                                                    
+Grant                     Accounting                                                                                    
+Gietz                     Accounting                                                                                    
+Fay                       Accounting                                                                                    
+Ernst                     Accounting                                                                                    
+De Haan                   Accounting                                                                                    
+Davies                    Accounting                                                                                    
+Abel                      Accounting                                                                                    
+Vargas                    Accounting                                                                                    
+Zlotkey                   Administration                                                                                
+Whalen                    Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Vargas                    Administration                                                                                
+Taylor                    Administration                                                                                
+Rajs                      Administration                                                                                
+Mourgos                   Administration                                                                                
+Matos                     Administration                                                                                
+Lorentz                   Administration                                                                                
+Kochhar                   Administration                                                                                
+King                      Administration                                                                                
+Hunold                    Administration                                                                                
+Higgins                   Administration                                                                                
+Hartstein                 Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Grant                     Administration                                                                                
+Gietz                     Administration                                                                                
+Fay                       Administration                                                                                
+Ernst                     Administration                                                                                
+De Haan                   Administration                                                                                
+Abel                      Administration                                                                                
+Davies                    Administration                                                                                
+Abel                      Contracting                                                                                   
+Davies                    Contracting                                                                                   
+De Haan                   Contracting                                                                                   
+Ernst                     Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Fay                       Contracting                                                                                   
+Gietz                     Contracting                                                                                   
+Grant                     Contracting                                                                                   
+Hartstein                 Contracting                                                                                   
+Higgins                   Contracting                                                                                   
+Hunold                    Contracting                                                                                   
+King                      Contracting                                                                                   
+Kochhar                   Contracting                                                                                   
+Lorentz                   Contracting                                                                                   
+Matos                     Contracting                                                                                   
+Mourgos                   Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Rajs                      Contracting                                                                                   
+Taylor                    Contracting                                                                                   
+Vargas                    Contracting                                                                                   
+Whalen                    Contracting                                                                                   
+Zlotkey                   Contracting                                                                                   
+Abel                      Executive                                                                                     
+Zlotkey                   Executive                                                                                     
+De Haan                   Executive                                                                                     
+Ernst                     Executive                                                                                     
+Fay                       Executive                                                                                     
+Gietz                     Executive                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Grant                     Executive                                                                                     
+Hartstein                 Executive                                                                                     
+Higgins                   Executive                                                                                     
+Hunold                    Executive                                                                                     
+King                      Executive                                                                                     
+Kochhar                   Executive                                                                                     
+Lorentz                   Executive                                                                                     
+Matos                     Executive                                                                                     
+Mourgos                   Executive                                                                                     
+Rajs                      Executive                                                                                     
+Taylor                    Executive                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Vargas                    Executive                                                                                     
+Whalen                    Executive                                                                                     
+Davies                    Executive                                                                                     
+Abel                      IT                                                                                            
+Zlotkey                   IT                                                                                            
+De Haan                   IT                                                                                            
+Ernst                     IT                                                                                            
+Fay                       IT                                                                                            
+Gietz                     IT                                                                                            
+Grant                     IT                                                                                            
+Hartstein                 IT                                                                                            
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Higgins                   IT                                                                                            
+Hunold                    IT                                                                                            
+King                      IT                                                                                            
+Kochhar                   IT                                                                                            
+Lorentz                   IT                                                                                            
+Matos                     IT                                                                                            
+Mourgos                   IT                                                                                            
+Rajs                      IT                                                                                            
+Taylor                    IT                                                                                            
+Vargas                    IT                                                                                            
+Whalen                    IT                                                                                            
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Davies                    IT                                                                                            
+Abel                      Marketing                                                                                     
+Zlotkey                   Marketing                                                                                     
+De Haan                   Marketing                                                                                     
+Ernst                     Marketing                                                                                     
+Fay                       Marketing                                                                                     
+Gietz                     Marketing                                                                                     
+Grant                     Marketing                                                                                     
+Hartstein                 Marketing                                                                                     
+Higgins                   Marketing                                                                                     
+Hunold                    Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+King                      Marketing                                                                                     
+Kochhar                   Marketing                                                                                     
+Lorentz                   Marketing                                                                                     
+Matos                     Marketing                                                                                     
+Mourgos                   Marketing                                                                                     
+Rajs                      Marketing                                                                                     
+Taylor                    Marketing                                                                                     
+Vargas                    Marketing                                                                                     
+Whalen                    Marketing                                                                                     
+Davies                    Marketing                                                                                     
+Whalen                    Sales                                                                                         
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Zlotkey                   Sales                                                                                         
+Taylor                    Sales                                                                                         
+Rajs                      Sales                                                                                         
+Mourgos                   Sales                                                                                         
+Matos                     Sales                                                                                         
+Lorentz                   Sales                                                                                         
+Kochhar                   Sales                                                                                         
+King                      Sales                                                                                         
+Hunold                    Sales                                                                                         
+Higgins                   Sales                                                                                         
+Hartstein                 Sales                                                                                         
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Grant                     Sales                                                                                         
+Gietz                     Sales                                                                                         
+Fay                       Sales                                                                                         
+Ernst                     Sales                                                                                         
+De Haan                   Sales                                                                                         
+Davies                    Sales                                                                                         
+Abel                      Sales                                                                                         
+Vargas                    Sales                                                                                         
+Zlotkey                   Shipping                                                                                      
+Whalen                    Shipping                                                                                      
+Vargas                    Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Taylor                    Shipping                                                                                      
+Rajs                      Shipping                                                                                      
+Mourgos                   Shipping                                                                                      
+Matos                     Shipping                                                                                      
+Lorentz                   Shipping                                                                                      
+Kochhar                   Shipping                                                                                      
+King                      Shipping                                                                                      
+Hunold                    Shipping                                                                                      
+Higgins                   Shipping                                                                                      
+Hartstein                 Shipping                                                                                      
+Grant                     Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Gietz                     Shipping                                                                                      
+Fay                       Shipping                                                                                      
+Ernst                     Shipping                                                                                      
+De Haan                   Shipping                                                                                      
+Abel                      Shipping                                                                                      
+Davies                    Shipping                                                                                      
+
+160 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT last_name, department_name
+  2  FROM employees CROSS JOIN departments
+  3* ORDER BY 1 
+HR@orcl>/
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Abel                      Administration                                                                                
+Abel                      Marketing                                                                                     
+Abel                      Shipping                                                                                      
+Abel                      IT                                                                                            
+Abel                      Sales                                                                                         
+Abel                      Executive                                                                                     
+Abel                      Accounting                                                                                    
+Abel                      Contracting                                                                                   
+Davies                    Contracting                                                                                   
+Davies                    IT                                                                                            
+Davies                    Accounting                                                                                    
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Davies                    Marketing                                                                                     
+Davies                    Executive                                                                                     
+Davies                    Shipping                                                                                      
+Davies                    Sales                                                                                         
+Davies                    Administration                                                                                
+De Haan                   Accounting                                                                                    
+De Haan                   Executive                                                                                     
+De Haan                   Sales                                                                                         
+De Haan                   IT                                                                                            
+De Haan                   Shipping                                                                                      
+De Haan                   Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+De Haan                   Contracting                                                                                   
+De Haan                   Administration                                                                                
+Ernst                     Administration                                                                                
+Ernst                     Marketing                                                                                     
+Ernst                     Shipping                                                                                      
+Ernst                     Contracting                                                                                   
+Ernst                     Sales                                                                                         
+Ernst                     Executive                                                                                     
+Ernst                     Accounting                                                                                    
+Ernst                     IT                                                                                            
+Fay                       Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Fay                       Marketing                                                                                     
+Fay                       Shipping                                                                                      
+Fay                       Contracting                                                                                   
+Fay                       Sales                                                                                         
+Fay                       Executive                                                                                     
+Fay                       Accounting                                                                                    
+Fay                       IT                                                                                            
+Gietz                     Contracting                                                                                   
+Gietz                     IT                                                                                            
+Gietz                     Accounting                                                                                    
+Gietz                     Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Gietz                     Executive                                                                                     
+Gietz                     Shipping                                                                                      
+Gietz                     Sales                                                                                         
+Gietz                     Administration                                                                                
+Grant                     Accounting                                                                                    
+Grant                     Executive                                                                                     
+Grant                     Sales                                                                                         
+Grant                     IT                                                                                            
+Grant                     Shipping                                                                                      
+Grant                     Marketing                                                                                     
+Grant                     Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Grant                     Administration                                                                                
+Hartstein                 Accounting                                                                                    
+Hartstein                 IT                                                                                            
+Hartstein                 Sales                                                                                         
+Hartstein                 Marketing                                                                                     
+Hartstein                 Administration                                                                                
+Hartstein                 Executive                                                                                     
+Hartstein                 Shipping                                                                                      
+Hartstein                 Contracting                                                                                   
+Higgins                   IT                                                                                            
+Higgins                   Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Higgins                   Marketing                                                                                     
+Higgins                   Administration                                                                                
+Higgins                   Contracting                                                                                   
+Higgins                   Accounting                                                                                    
+Higgins                   Executive                                                                                     
+Higgins                   Sales                                                                                         
+Hunold                    Accounting                                                                                    
+Hunold                    Executive                                                                                     
+Hunold                    Administration                                                                                
+Hunold                    Marketing                                                                                     
+Hunold                    Sales                                                                                         
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Hunold                    Contracting                                                                                   
+Hunold                    Shipping                                                                                      
+Hunold                    IT                                                                                            
+King                      Contracting                                                                                   
+King                      IT                                                                                            
+King                      Accounting                                                                                    
+King                      Marketing                                                                                     
+King                      Executive                                                                                     
+King                      Shipping                                                                                      
+King                      Sales                                                                                         
+King                      Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Kochhar                   Accounting                                                                                    
+Kochhar                   Executive                                                                                     
+Kochhar                   Sales                                                                                         
+Kochhar                   IT                                                                                            
+Kochhar                   Shipping                                                                                      
+Kochhar                   Marketing                                                                                     
+Kochhar                   Contracting                                                                                   
+Kochhar                   Administration                                                                                
+Lorentz                   Administration                                                                                
+Lorentz                   Marketing                                                                                     
+Lorentz                   Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Lorentz                   Contracting                                                                                   
+Lorentz                   Sales                                                                                         
+Lorentz                   Executive                                                                                     
+Lorentz                   Accounting                                                                                    
+Lorentz                   IT                                                                                            
+Matos                     Contracting                                                                                   
+Matos                     IT                                                                                            
+Matos                     Accounting                                                                                    
+Matos                     Marketing                                                                                     
+Matos                     Executive                                                                                     
+Matos                     Shipping                                                                                      
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Matos                     Sales                                                                                         
+Matos                     Administration                                                                                
+Mourgos                   Accounting                                                                                    
+Mourgos                   Executive                                                                                     
+Mourgos                   Sales                                                                                         
+Mourgos                   IT                                                                                            
+Mourgos                   Shipping                                                                                      
+Mourgos                   Marketing                                                                                     
+Mourgos                   Contracting                                                                                   
+Mourgos                   Administration                                                                                
+Rajs                      Administration                                                                                
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Rajs                      Marketing                                                                                     
+Rajs                      Shipping                                                                                      
+Rajs                      Contracting                                                                                   
+Rajs                      Sales                                                                                         
+Rajs                      Executive                                                                                     
+Rajs                      Accounting                                                                                    
+Rajs                      IT                                                                                            
+Taylor                    Administration                                                                                
+Taylor                    Marketing                                                                                     
+Taylor                    Shipping                                                                                      
+Taylor                    Contracting                                                                                   
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Taylor                    Sales                                                                                         
+Taylor                    Executive                                                                                     
+Taylor                    Accounting                                                                                    
+Taylor                    IT                                                                                            
+Vargas                    Administration                                                                                
+Vargas                    Marketing                                                                                     
+Vargas                    Shipping                                                                                      
+Vargas                    Contracting                                                                                   
+Vargas                    Sales                                                                                         
+Vargas                    Executive                                                                                     
+Vargas                    Accounting                                                                                    
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Vargas                    IT                                                                                            
+Whalen                    Administration                                                                                
+Whalen                    Marketing                                                                                     
+Whalen                    Shipping                                                                                      
+Whalen                    Contracting                                                                                   
+Whalen                    Sales                                                                                         
+Whalen                    Executive                                                                                     
+Whalen                    Accounting                                                                                    
+Whalen                    IT                                                                                            
+Zlotkey                   Administration                                                                                
+Zlotkey                   Marketing                                                                                     
+
+LAST_NAME                 DEPARTMENT_NAME                                                                               
+------------------------- ------------------------------                                                                
+Zlotkey                   Shipping                                                                                      
+Zlotkey                   Contracting                                                                                   
+Zlotkey                   Sales                                                                                         
+Zlotkey                   Executive                                                                                     
+Zlotkey                   Accounting                                                                                    
+Zlotkey                   IT                                                                                            
+
+160 rows selected.
+
+HR@orcl>SELECT department_id, department_name,
+  2  location_id, city
+  3  FROM departments
+  4  NATURAL JOIN locations ;
+
+DEPARTMENT_ID DEPARTMENT_NAME                LOCATION_ID CITY                                                           
+------------- ------------------------------ ----------- ------------------------------                                 
+           10 Administration                        1700 Seattle                                                        
+           20 Marketing                             1800 Toronto                                                        
+           50 Shipping                              1500 South San Francisco                                            
+           60 IT                                    1400 Southlake                                                      
+           80 Sales                                 2500 Oxford                                                         
+           90 Executive                             1700 Seattle                                                        
+          110 Accounting                            1700 Seattle                                                        
+          190 Contracting                           1700 Seattle                                                        
+
+8 rows selected.
+
+HR@orcl>desc departments
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ DEPARTMENT_ID                                                     NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                                                   NOT NULL VARCHAR2(30)
+ MANAGER_ID                                                                 NUMBER(6)
+ LOCATION_ID                                                                NUMBER(4)
+
+HR@orcl>desc locations
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ LOCATION_ID                                                       NOT NULL NUMBER(4)
+ STREET_ADDRESS                                                             VARCHAR2(40)
+ POSTAL_CODE                                                                VARCHAR2(12)
+ CITY                                                              NOT NULL VARCHAR2(30)
+ STATE_PROVINCE                                                             VARCHAR2(25)
+ COUNTRY_ID                                                                 CHAR(2)
+
+HR@orcl>SELECT department_id, department_name,
+  2  location_id, city
+  3  FROM departments
+  4  NATURAL JOIN locations
+  5  WHERE department_id IN (20,50);
+
+DEPARTMENT_ID DEPARTMENT_NAME                LOCATION_ID CITY                                                           
+------------- ------------------------------ ----------- ------------------------------                                 
+           20 Marketing                             1800 Toronto                                                        
+           50 Shipping                              1500 South San Francisco                                            
+
+HR@orcl>SELECT employee_id, last_name,
+  2  location_id, department_id
+  3  FROM employee JOIN departments
+  4  USING (department_id);
+FROM employee JOIN departments
+     *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name,
+  2  location_id, department_id
+  3  FROM employees JOIN departments
+  4* USING (department_id)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 LOCATION_ID DEPARTMENT_ID                                                         
+----------- ------------------------- ----------- -------------                                                         
+        100 King                             1700            90                                                         
+        101 Kochhar                          1700            90                                                         
+        102 De Haan                          1700            90                                                         
+        103 Hunold                           1400            60                                                         
+        104 Ernst                            1400            60                                                         
+        107 Lorentz                          1400            60                                                         
+        124 Mourgos                          1500            50                                                         
+        141 Rajs                             1500            50                                                         
+        142 Davies                           1500            50                                                         
+        143 Matos                            1500            50                                                         
+        144 Vargas                           1500            50                                                         
+
+EMPLOYEE_ID LAST_NAME                 LOCATION_ID DEPARTMENT_ID                                                         
+----------- ------------------------- ----------- -------------                                                         
+        149 Zlotkey                          2500            80                                                         
+        174 Abel                             2500            80                                                         
+        176 Taylor                           2500            80                                                         
+        200 Whalen                           1700            10                                                         
+        201 Hartstein                        1800            20                                                         
+        202 Fay                              1800            20                                                         
+        205 Higgins                          1700           110                                                         
+        206 Gietz                            1700           110                                                         
+
+19 rows selected.
+
+HR@orcl>desc employees
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>SELECT 1.city, d.department_name
+  2  FROM locations 1 JOIN departments d
+  3  USING (location_id)
+  4  WHERE d.location_id = 1400;
+FROM locations 1 JOIN departments d
+               *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT l.city, d.department_name
+  2  FROM locations l JOIN departments d
+  3  USING (location_id)
+  4* WHERE d.location_id = 1400
+HR@orcl>/
+WHERE d.location_id = 1400
+      *
+ERROR at line 4:
+ORA-25154: column part of USING clause cannot have qualifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT l.city, d.department_name
+  2  FROM locations l JOIN departments d
+  3  USING (location_id)
+  4* WHERE d.location_id = 1400
+HR@orcl>spool off

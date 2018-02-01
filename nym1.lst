@@ -1,0 +1,41 @@
+SYS@orcl>conn hr/hr
+Connected.
+HR@orcl>DESCRIBE departments
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ DEPARTMENT_ID                                                     NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                                                   NOT NULL VARCHAR2(30)
+ MANAGER_ID                                                                 NUMBER(6)
+ LOCATION_ID                                                                NUMBER(4)
+
+HR@orcl>SELECT * FROM departments;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                     
+------------- ------------------------------ ---------- -----------                                                     
+           10 Administration                        200        1700                                                     
+           20 Marketing                             201        1800                                                     
+           50 Shipping                              124        1500                                                     
+           60 IT                                    103        1400                                                     
+           80 Sales                                 149        2500                                                     
+           90 Executive                             100        1700                                                     
+          110 Accounting                            205        1700                                                     
+          190 Contracting                                      1700                                                     
+
+8 rows selected.
+
+HR@orcl>DESC employees
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>spool nym_1

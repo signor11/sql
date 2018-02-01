@@ -1,0 +1,2 @@
+select TO_CHAR(sysdate,'"TODAT IS "YYYY-MM-DD" kk"') from dual
+/

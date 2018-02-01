@@ -1,0 +1,7 @@
+HR@orcl>select replace('JACK and JUE','J','BL') from dual;
+
+REPLACE('JACKA                                                                                                          
+--------------                                                                                                          
+BLACK and BLUE                                                                                                          
+
+HR@orcl>spool off

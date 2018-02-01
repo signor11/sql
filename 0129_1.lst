@@ -1,0 +1,59 @@
+HR@orcl>alter table customer
+  2  add address varchar2(40);
+
+Table altered.
+
+HR@orcl>select * from customer;
+
+        ID NAME                 G ADDRESS                                                                               
+---------- -------------------- - ----------------------------------------                                              
+      4567 Janet                F                                                                                       
+      6789 Henry                M                                                                                       
+
+HR@orcl>desc customer;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ID                                                                NOT NULL NUMBER(4)
+ NAME                                                              NOT NULL VARCHAR2(20)
+ GENDER                                                            NOT NULL CHAR(1)
+ ADDRESS                                                                    VARCHAR2(40)
+
+HR@orcl>ALTER TABLE customer
+  2  modify name varchar2(25);
+
+Table altered.
+
+HR@orcl>desc customer;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ID                                                                NOT NULL NUMBER(4)
+ NAME                                                              NOT NULL VARCHAR2(25)
+ GENDER                                                            NOT NULL CHAR(1)
+ ADDRESS                                                                    VARCHAR2(40)
+
+HR@orcl>alter table customer
+  2  modify address default 'Not yet';
+
+Table altered.
+
+HR@orcl>select * from customer;
+
+        ID NAME                      G ADDRESS                                                                          
+---------- ------------------------- - ----------------------------------------                                         
+      4567 Janet                     F                                                                                  
+      6789 Henry                     M                                                                                  
+
+HR@orcl>update customer
+  2  set address = default;
+
+2 rows updated.
+
+HR@orcl>select * from customer;
+
+        ID NAME                      G ADDRESS                                                                          
+---------- ------------------------- - ----------------------------------------                                         
+      4567 Janet                     F Not yet                                                                          
+      6789 Henry                     M Not yet                                                                          
+
+HR@orcl>delete customer
+  2  

@@ -1,0 +1,346 @@
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,sum(salary) 
+  2  from employees
+  3  group by department_id
+  4* order by 1
+HR@orcl>/
+
+DEPARTMENT_ID SUM(SALARY)                                                                                               
+------------- -----------                                                                                               
+           10        4400                                                                                               
+           20       19000                                                                                               
+           50       17500                                                                                               
+           60       19200                                                                                               
+           80       30100                                                                                               
+           90       58000                                                                                               
+          110       20300                                                                                               
+                     7000                                                                                               
+
+8 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,sum(salary) 
+  2  from employees
+  3* group by department_id
+HR@orcl>/
+
+DEPARTMENT_ID SUM(SALARY)                                                                                               
+------------- -----------                                                                                               
+                     7000                                                                                               
+           90       58000                                                                                               
+           20       19000                                                                                               
+          110       20300                                                                                               
+           50       17500                                                                                               
+           80       30100                                                                                               
+           60       19200                                                                                               
+           10        4400                                                                                               
+
+8 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,sum(salary) 
+  2  from employees
+  3  group by department_id
+  4* order by 1
+HR@orcl>/
+
+DEPARTMENT_ID SUM(SALARY)                                                                                               
+------------- -----------                                                                                               
+           10        4400                                                                                               
+           20       19000                                                                                               
+           50       17500                                                                                               
+           60       19200                                                                                               
+           80       30100                                                                                               
+           90       58000                                                                                               
+          110       20300                                                                                               
+                     7000                                                                                               
+
+8 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  group by department_id, job_id
+  4* order by 1
+HR@orcl>/
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+           10 AD_ASST           4400                                                                                    
+           20 MK_MAN           13000                                                                                    
+           20 MK_REP            6000                                                                                    
+           50 ST_CLERK         11700                                                                                    
+           50 ST_MAN            5800                                                                                    
+           60 IT_PROG          19200                                                                                    
+           80 SA_MAN           10500                                                                                    
+           80 SA_REP           19600                                                                                    
+           90 AD_PRES          24000                                                                                    
+           90 AD_VP            34000                                                                                    
+          110 AC_ACCOUNT        8300                                                                                    
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+          110 AC_MGR           12000                                                                                    
+              SA_REP            7000                                                                                    
+
+13 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  group by department_id, job_id
+  4* order by 1,2
+HR@orcl>/
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+           10 AD_ASST           4400                                                                                    
+           20 MK_MAN           13000                                                                                    
+           20 MK_REP            6000                                                                                    
+           50 ST_CLERK         11700                                                                                    
+           50 ST_MAN            5800                                                                                    
+           60 IT_PROG          19200                                                                                    
+           80 SA_MAN           10500                                                                                    
+           80 SA_REP           19600                                                                                    
+           90 AD_PRES          24000                                                                                    
+           90 AD_VP            34000                                                                                    
+          110 AC_ACCOUNT        8300                                                                                    
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+          110 AC_MGR           12000                                                                                    
+              SA_REP            7000                                                                                    
+
+13 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  where department_id > 50
+  4  group by department_id, job_id
+  5* order by 1,2
+HR@orcl>/
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+           60 IT_PROG          19200                                                                                    
+           80 SA_MAN           10500                                                                                    
+           80 SA_REP           19600                                                                                    
+           90 AD_PRES          24000                                                                                    
+           90 AD_VP            34000                                                                                    
+          110 AC_ACCOUNT        8300                                                                                    
+          110 AC_MGR           12000                                                                                    
+
+7 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  where sum(salary) > 20000
+  4  group by department_id, job_id
+  5* order by 1,2
+HR@orcl>/
+where sum(salary) > 20000
+      *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  group by department_id, job_id
+  4  where sum(salary) > 20000
+  5* order by 1,2
+HR@orcl>/
+where sum(salary) > 20000
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id,job_id, sum(salary) 
+  2  from employees
+  3  group by department_id, job_id
+  4  having sum(salary) > 20000
+  5* order by 1,2
+HR@orcl>
+HR@orcl>/
+
+DEPARTMENT_ID JOB_ID     SUM(SALARY)                                                                                    
+------------- ---------- -----------                                                                                    
+           90 AD_PRES          24000                                                                                    
+           90 AD_VP            34000                                                                                    
+
+HR@orcl>select MAX(AVG(salary))
+  2  FROM employees
+  3  GROUP BY department)id;
+GROUP BY department)id
+                   *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select MAX(AVG(salary))
+  2  FROM employees
+  3* GROUP BY department_id
+HR@orcl>/
+
+MAX(AVG(SALARY))                                                                                                        
+----------------                                                                                                        
+      19333.3333                                                                                                        
+
+HR@orcl>select job_id, SUM(salary) PAYROLL
+  2  FROM employees
+  3  where job_id NOT LIKE '%REP%'
+  4  GROUP BY job_id
+  5  HAVING SUM(salary) > 13000
+  6  ORDER BY SUM(salary) ;
+
+JOB_ID        PAYROLL                                                                                                   
+---------- ----------                                                                                                   
+IT_PROG         19200                                                                                                   
+AD_PRES         24000                                                                                                   
+AD_VP           34000                                                                                                   
+
+HR@orcl>select department_id, MAX(salary)
+  2  FROM employees
+  3  GROUP BY department_id
+  4  HAVING MAX(salary)>10000;
+
+DEPARTMENT_ID MAX(SALARY)                                                                                               
+------------- -----------                                                                                               
+           90       24000                                                                                               
+           20       13000                                                                                               
+          110       12000                                                                                               
+           80       11000                                                                                               
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id, MAX(salary)
+  2  FROM employees
+  3  GROUP BY department_id
+  4* HAVING MAX(salary)>10000 #hello
+  5  /
+HAVING MAX(salary)>10000 #hello
+                         *
+ERROR at line 4:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_id, MAX(salary)
+  2  FROM employees
+  3  GROUP BY department_id
+  4* HAVING MAX(salary)>10000 
+HR@orcl>SELECT department_id, AVG(salary)
+  2  FROM employees
+  3  GROUP BY department_id
+  4  HAVING MAX(salary)>10000;
+
+DEPARTMENT_ID AVG(SALARY)                                                                                               
+------------- -----------                                                                                               
+           90  19333.3333                                                                                               
+           20        9500                                                                                               
+          110       10150                                                                                               
+           80  10033.3333                                                                                               
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT department_id, AVG(salary)
+  2  FROM employees
+  3  GROUP BY department_id -hello-
+  4* HAVING MAX(salary)>10000
+HR@orcl>/
+HAVING MAX(salary)>10000
+*
+ERROR at line 4:
+ORA-00936: missing expression 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT department_id, AVG(salary)
+  2  FROM employees
+  3  GROUP BY department_id /*hello*/
+  4* HAVING MAX(salary)>10000
+HR@orcl>/
+
+DEPARTMENT_ID AVG(SALARY)                                                                                               
+------------- -----------                                                                                               
+           90  19333.3333                                                                                               
+           20        9500                                                                                               
+          110       10150                                                                                               
+           80  10033.3333                                                                                               
+
+HR@orcl>SELECT employee_id, last_name, department_id\
+  2  FROM employees;
+SELECT employee_id, last_name, department_id\
+                                            *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, department_id
+  2* FROM employees
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID                                                                     
+----------- ------------------------- -------------                                                                     
+        100 King                                 90                                                                     
+        101 Kochhar                              90                                                                     
+        102 De Haan                              90                                                                     
+        103 Hunold                               60                                                                     
+        104 Ernst                                60                                                                     
+        107 Lorentz                              60                                                                     
+        124 Mourgos                              50                                                                     
+        141 Rajs                                 50                                                                     
+        142 Davies                               50                                                                     
+        143 Matos                                50                                                                     
+        144 Vargas                               50                                                                     
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID                                                                     
+----------- ------------------------- -------------                                                                     
+        149 Zlotkey                              80                                                                     
+        174 Abel                                 80                                                                     
+        176 Taylor                               80                                                                     
+        178 Grant                                                                                                       
+        200 Whalen                               10                                                                     
+        201 Hartstein                            20                                                                     
+        202 Fay                                  20                                                                     
+        205 Higgins                             110                                                                     
+        206 Gietz                               110                                                                     
+
+20 rows selected.
+
+HR@orcl>exit

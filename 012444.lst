@@ -1,0 +1,170 @@
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, job_id, salary
+  2  	FROM employees
+  3  WHERE salary > ANY
+  4  			(SELECT salary
+  5  			FROM employees
+  6  			WHERE	 JOB_id = 'IT_PROG')
+  7* AND job_id <> 'IT_PROG' 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                                                             
+----------- ------------------------- ---------- ----------                                                             
+        100 King                      AD_PRES         24000                                                             
+        101 Kochhar                   AD_VP           17000                                                             
+        102 De Haan                   AD_VP           17000                                                             
+        201 Hartstein                 MK_MAN          13000                                                             
+        205 Higgins                   AC_MGR          12000                                                             
+        174 Abel                      SA_REP          11000                                                             
+        149 Zlotkey                   SA_MAN          10500                                                             
+        176 Taylor                    SA_REP           8600                                                             
+        206 Gietz                     AC_ACCOUNT       8300                                                             
+        178 Grant                     SA_REP           7000                                                             
+        202 Fay                       MK_REP           6000                                                             
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                                                             
+----------- ------------------------- ---------- ----------                                                             
+        124 Mourgos                   ST_MAN           5800                                                             
+        200 Whalen                    AD_ASST          4400                                                             
+
+13 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, job_id, salary
+  2  	FROM employees
+  3  WHERE salary < ANY
+  4  			(SELECT salary
+  5  			FROM employees
+  6  			WHERE	 JOB_id = 'IT_PROG')
+  7* AND job_id <> 'IT_PROG' 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                                                             
+----------- ------------------------- ---------- ----------                                                             
+        144 Vargas                    ST_CLERK         2500                                                             
+        143 Matos                     ST_CLERK         2600                                                             
+        142 Davies                    ST_CLERK         3100                                                             
+        141 Rajs                      ST_CLERK         3500                                                             
+        200 Whalen                    AD_ASST          4400                                                             
+        124 Mourgos                   ST_MAN           5800                                                             
+        202 Fay                       MK_REP           6000                                                             
+        178 Grant                     SA_REP           7000                                                             
+        206 Gietz                     AC_ACCOUNT       8300                                                             
+        176 Taylor                    SA_REP           8600                                                             
+
+10 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, job_id, salary
+  2  	FROM employees
+  3  WHERE salary < ALL
+  4  			(SELECT salary
+  5  			FROM employees
+  6  			WHERE	 JOB_id = 'IT_PROG')
+  7* AND job_id <> 'IT_PROG' 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                                                             
+----------- ------------------------- ---------- ----------                                                             
+        141 Rajs                      ST_CLERK         3500                                                             
+        142 Davies                    ST_CLERK         3100                                                             
+        143 Matos                     ST_CLERK         2600                                                             
+        144 Vargas                    ST_CLERK         2500                                                             
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name, job_id, salary
+  2  	FROM employees
+  3  WHERE salary > ALL
+  4  			(SELECT salary
+  5  			FROM employees
+  6  			WHERE	 JOB_id = 'IT_PROG')
+  7* AND job_id <> 'IT_PROG' 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                                                             
+----------- ------------------------- ---------- ----------                                                             
+        149 Zlotkey                   SA_MAN          10500                                                             
+        174 Abel                      SA_REP          11000                                                             
+        205 Higgins                   AC_MGR          12000                                                             
+        201 Hartstein                 MK_MAN          13000                                                             
+        101 Kochhar                   AD_VP           17000                                                             
+        102 De Haan                   AD_VP           17000                                                             
+        100 King                      AD_PRES         24000                                                             
+
+7 rows selected.
+
+HR@orcl>SELECT employee_id, last_name , job_id
+  2  from employees
+  3  where employee_id not in (select manager_id from employees)
+  4  /
+
+no rows selected
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, last_name , job_id
+  2  from employees
+  3  where employee_id not in (select manager_id from employees
+  4*                           where manager_id is not null)
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID                                                                            
+----------- ------------------------- ----------                                                                        
+        104 Ernst                     IT_PROG                                                                           
+        107 Lorentz                   IT_PROG                                                                           
+        141 Rajs                      ST_CLERK                                                                          
+        142 Davies                    ST_CLERK                                                                          
+        143 Matos                     ST_CLERK                                                                          
+        144 Vargas                    ST_CLERK                                                                          
+        174 Abel                      SA_REP                                                                            
+        176 Taylor                    SA_REP                                                                            
+        178 Grant                     SA_REP                                                                            
+        200 Whalen                    AD_ASST                                                                           
+        202 Fay                       MK_REP                                                                            
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID                                                                            
+----------- ------------------------- ----------                                                                        
+        206 Gietz                     AC_ACCOUNT                                                                        
+
+12 rows selected.
+
+HR@orcl>desc employees;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>desc employees
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>spool off

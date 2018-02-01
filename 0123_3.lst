@@ -1,0 +1,1097 @@
+HR@orcl>select * from employees
+  2  where salary > '10000' ;
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER         HIRE_DATE     
+----------- -------------------- ------------------------- ------------------------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                           
+---------- ---------- -------------- ---------- -------------                                                           
+        100 Steven               King                      SKING                     515.123.4567         17-JUN-87     
+AD_PRES         24000                                      90                                                           
+                                                                                                                        
+        101 Neena                Kochhar                   NKOCHHAR                  515.123.4568         21-SEP-89     
+AD_VP           17000                       100            90                                                           
+                                                                                                                        
+        102 Lex                  De Haan                   LDEHAAN                   515.123.4569         13-JAN-93     
+AD_VP           17000                       100            90                                                           
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER         HIRE_DATE     
+----------- -------------------- ------------------------- ------------------------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                           
+---------- ---------- -------------- ---------- -------------                                                           
+        149 Eleni                Zlotkey                   EZLOTKEY                  011.44.1344.429018   29-JAN-00     
+SA_MAN          10500             .2        100            80                                                           
+                                                                                                                        
+        174 Ellen                Abel                      EABEL                     011.44.1644.429267   11-MAY-96     
+SA_REP          11000             .3        149            80                                                           
+                                                                                                                        
+        201 Michael              Hartstein                 MHARTSTE                  515.123.5555         17-FEB-96     
+MK_MAN          13000                       100            20                                                           
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER         HIRE_DATE     
+----------- -------------------- ------------------------- ------------------------- -------------------- ---------     
+JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                           
+---------- ---------- -------------- ---------- -------------                                                           
+        205 Shelley              Higgins                   SHIGGINS                  515.123.8080         07-JUN-94     
+AC_MGR          12000                       101           110                                                           
+                                                                                                                        
+
+7 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select * from employees
+  2* where salary > '$10000' 
+HR@orcl>/
+where salary > '$10000' 
+               *
+ERROR at line 2:
+ORA-01722: invalid number 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select * from employees
+  2* where salary > to_number('$10000','$99,999') 
+HR@orcl>/
+where salary > to_number('$10000','$99,999') 
+                         *
+ERROR at line 2:
+ORA-01722: invalid number 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select * from employees
+  2* where salary > to_number('$10000','$99,999') 
+HR@orcl>select employee_id, last_name, hire_date
+  2  from employees
+  3  where hire_date > '1999/01/01' ;
+where hire_date > '1999/01/01' 
+                  *
+ERROR at line 3:
+ORA-01861: literal does not match format string 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, last_name, hire_date
+  2  from employees
+  3* where hire_date > to_date('1999/01/01','yyyy/mm/dd') 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 HIRE_DATE                                                                         
+----------- ------------------------- ---------                                                                         
+        107 Lorentz                   07-FEB-99                                                                         
+        124 Mourgos                   16-NOV-99                                                                         
+        149 Zlotkey                   29-JAN-00                                                                         
+        178 Grant                     24-MAY-99                                                                         
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, last_name, hire_date
+  2  from employees
+  3* where hire_date > to_date('99/01/01','yy/mm/dd') 
+HR@orcl>/
+
+no rows selected
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, last_name, hire_date
+  2  from employees
+  3* where hire_date > to_date('99/01/01','rr/mm/dd') 
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 HIRE_DATE                                                                         
+----------- ------------------------- ---------                                                                         
+        107 Lorentz                   07-FEB-99                                                                         
+        124 Mourgos                   16-NOV-99                                                                         
+        149 Zlotkey                   29-JAN-00                                                                         
+        178 Grant                     24-MAY-99                                                                         
+
+HR@orcl>select last_name, to_char(hire_date, 'dd-Mon-YYYY')
+  2  from employees
+  3  where hire_date < to_date('01-Jan-90','DD-Mon-RR') ;
+
+LAST_NAME                 TO_CHAR(HIRE_DATE,'D                                                                          
+------------------------- --------------------                                                                          
+King                      17-Jun-1987                                                                                   
+Kochhar                   21-Sep-1989                                                                                   
+Whalen                    17-Sep-1987                                                                                   
+
+HR@orcl>ED
+Wrote file afiedt.buf
+
+  1  select last_name, to_char(hire_date, 'dd-Mon-YYYY')
+  2  from employees
+  3* where hire_date < to_date('01-Jan-90','DD-Mon-yy') 
+HR@orcl>/\
+
+LAST_NAME                 TO_CHAR(HIRE_DATE,'D                                                                          
+------------------------- --------------------                                                                          
+King                      17-Jun-1987                                                                                   
+Kochhar                   21-Sep-1989                                                                                   
+De Haan                   13-Jan-1993                                                                                   
+Hunold                    03-Jan-1990                                                                                   
+Ernst                     21-May-1991                                                                                   
+Lorentz                   07-Feb-1999                                                                                   
+Mourgos                   16-Nov-1999                                                                                   
+Rajs                      17-Oct-1995                                                                                   
+Davies                    29-Jan-1997                                                                                   
+Matos                     15-Mar-1998                                                                                   
+Vargas                    09-Jul-1998                                                                                   
+
+LAST_NAME                 TO_CHAR(HIRE_DATE,'D                                                                          
+------------------------- --------------------                                                                          
+Zlotkey                   29-Jan-2000                                                                                   
+Abel                      11-May-1996                                                                                   
+Taylor                    24-Mar-1998                                                                                   
+Grant                     24-May-1999                                                                                   
+Whalen                    17-Sep-1987                                                                                   
+Hartstein                 17-Feb-1996                                                                                   
+Fay                       17-Aug-1997                                                                                   
+Higgins                   07-Jun-1994                                                                                   
+Gietz                     07-Jun-1994                                                                                   
+
+20 rows selected.
+
+HR@orcl>select last_name, to_char(hire_date, 'DD-Mon-yyyy')
+  2  from employees
+  3  where to_date(hire_date, 'DD-Mon-yy') <
+  4  '01-Jan-1990';
+
+no rows selected
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, to_char(hire_date, 'DD-Mon-yyyy')
+  2  from employees
+  3* where to_date(hire_date, 'DD-Mon-yy') < '01-Jan-1990'
+HR@orcl>/
+
+no rows selected
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, to_char(hire_date, 'DD-Mon-yyyy')
+  2  from employees
+  3* where to_date(hire_date, 'DD-Mon-rr') < '01-Jan-1990'
+HR@orcl>/
+
+LAST_NAME                 TO_CHAR(HIRE_DATE,'D                                                                          
+------------------------- --------------------                                                                          
+King                      17-Jun-1987                                                                                   
+Kochhar                   21-Sep-1989                                                                                   
+Whalen                    17-Sep-1987                                                                                   
+
+HR@orcl>select last_name,
+  2  upper(concat(substr (last_name, 1,8), '_US'))
+  3  from employees
+  4  where department_id = 60;
+
+LAST_NAME                 UPPER(CONCAT(SUBSTR(LAST_NAME,1,8),                                                           
+------------------------- -----------------------------------                                                           
+Ernst                     ERNST_US                                                                                      
+Hunold                    HUNOLD_US                                                                                     
+Lorentz                   LORENTZ_US                                                                                    
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(next_day(add_months(hire_date, 6), 'FRIDAY'),'fmDay, Month ddth, YYYY') 
+  2  "Next 6 Month Review"
+  3  from employees
+  4* order by hire_date
+HR@orcl>/
+
+Next 6 Month Review                                                                                                     
+-------------------------------------------------------------------------------------                                   
+Friday, December 18th, 1987                                                                                             
+Friday, March 18th, 1988                                                                                                
+Friday, March 23rd, 1990                                                                                                
+Friday, July 6th, 1990                                                                                                  
+Friday, November 22nd, 1991                                                                                             
+Friday, July 16th, 1993                                                                                                 
+Friday, December 9th, 1994                                                                                              
+Friday, December 9th, 1994                                                                                              
+Friday, April 19th, 1996                                                                                                
+Friday, August 23rd, 1996                                                                                               
+Friday, November 15th, 1996                                                                                             
+
+Next 6 Month Review                                                                                                     
+-------------------------------------------------------------------------------------                                   
+Friday, August 1st, 1997                                                                                                
+Friday, February 20th, 1998                                                                                             
+Friday, September 18th, 1998                                                                                            
+Friday, September 25th, 1998                                                                                            
+Friday, January 15th, 1999                                                                                              
+Friday, August 13th, 1999                                                                                               
+Friday, November 26th, 1999                                                                                             
+Friday, May 19th, 2000                                                                                                  
+Friday, August 4th, 2000                                                                                                
+
+20 rows selected.
+
+HR@orcl>select employee_id, salary, commission_pct,
+  2  		salary+salary*commission_pct AS incomm
+  3  from employees
+  4  /\
+  5  ;
+/\
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, salary, commission_pct,
+  2  		salary+salary*commission_pct AS incomm
+  3* from employees
+  4  /
+
+EMPLOYEE_ID     SALARY COMMISSION_PCT     INCOMM                                                                        
+----------- ---------- -------------- ----------                                                                        
+        100      24000                                                                                                  
+        101      17000                                                                                                  
+        102      17000                                                                                                  
+        103       9000                                                                                                  
+        104       6000                                                                                                  
+        107       4200                                                                                                  
+        124       5800                                                                                                  
+        141       3500                                                                                                  
+        142       3100                                                                                                  
+        143       2600                                                                                                  
+        144       2500                                                                                                  
+
+EMPLOYEE_ID     SALARY COMMISSION_PCT     INCOMM                                                                        
+----------- ---------- -------------- ----------                                                                        
+        149      10500             .2      12600                                                                        
+        174      11000             .3      14300                                                                        
+        176       8600             .2      10320                                                                        
+        178       7000            .15       8050                                                                        
+        200       4400                                                                                                  
+        201      13000                                                                                                  
+        202       6000                                                                                                  
+        205      12000                                                                                                  
+        206       8300                                                                                                  
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, salary, commission_pct,
+  2  		salary+salary*NVL(commission_pct,0) AS incomm
+  3* from employees
+HR@orcl>/
+
+EMPLOYEE_ID     SALARY COMMISSION_PCT     INCOMM                                                                        
+----------- ---------- -------------- ----------                                                                        
+        100      24000                     24000                                                                        
+        101      17000                     17000                                                                        
+        102      17000                     17000                                                                        
+        103       9000                      9000                                                                        
+        104       6000                      6000                                                                        
+        107       4200                      4200                                                                        
+        124       5800                      5800                                                                        
+        141       3500                      3500                                                                        
+        142       3100                      3100                                                                        
+        143       2600                      2600                                                                        
+        144       2500                      2500                                                                        
+
+EMPLOYEE_ID     SALARY COMMISSION_PCT     INCOMM                                                                        
+----------- ---------- -------------- ----------                                                                        
+        149      10500             .2      12600                                                                        
+        174      11000             .3      14300                                                                        
+        176       8600             .2      10320                                                                        
+        178       7000            .15       8050                                                                        
+        200       4400                      4400                                                                        
+        201      13000                     13000                                                                        
+        202       6000                      6000                                                                        
+        205      12000                     12000                                                                        
+        206       8300                      8300                                                                        
+
+20 rows selected.
+
+HR@orcl>ed\
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2  		salary+salary*NVL(commission_pct,0) AS incomm,
+  3  	nvl2(commission_pct,'COMM','NOCOMM') AS bigo
+  4* from employees
+HR@orcl>/
+
+EMPLOYEE_ID     INCOMM BIGO                                                                                             
+----------- ---------- ------                                                                                           
+        100      24000 NOCOMM                                                                                           
+        101      17000 NOCOMM                                                                                           
+        102      17000 NOCOMM                                                                                           
+        103       9000 NOCOMM                                                                                           
+        104       6000 NOCOMM                                                                                           
+        107       4200 NOCOMM                                                                                           
+        124       5800 NOCOMM                                                                                           
+        141       3500 NOCOMM                                                                                           
+        142       3100 NOCOMM                                                                                           
+        143       2600 NOCOMM                                                                                           
+        144       2500 NOCOMM                                                                                           
+
+EMPLOYEE_ID     INCOMM BIGO                                                                                             
+----------- ---------- ------                                                                                           
+        149      12600 COMM                                                                                             
+        174      14300 COMM                                                                                             
+        176      10320 COMM                                                                                             
+        178       8050 COMM                                                                                             
+        200       4400 NOCOMM                                                                                           
+        201      13000 NOCOMM                                                                                           
+        202       6000 NOCOMM                                                                                           
+        205      12000 NOCOMM                                                                                           
+        206       8300 NOCOMM                                                                                           
+
+20 rows selected.
+
+HR@orcl>select nullif(1,1), nullif(3,4) from dual;
+
+NULLIF(1,1) NULLIF(3,4)                                                                                                 
+----------- -----------                                                                                                 
+                      3                                                                                                 
+
+HR@orcl>select employee_id,
+  2  	nullif(salary, salary+salary*NVL(commssion_pct,0))
+  3  from employees;
+	nullif(salary, salary+salary*NVL(commssion_pct,0))
+	                                 *
+ERROR at line 2:
+ORA-00904: "COMMSSION_PCT": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2  	nullif(salary, salary+salary*nvl(commssion_pct,0))
+  3* from employees
+HR@orcl>/
+	nullif(salary, salary+salary*nvl(commssion_pct,0))
+	                                 *
+ERROR at line 2:
+ORA-00904: "COMMSSION_PCT": invalid identifier 
+
+
+HR@orcl>conn hr/hr
+Connected.
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2  	nullif(salary, salary+salary*nvl(commssion_pct,0))
+  3* from employees
+HR@orcl>/
+	nullif(salary, salary+salary*nvl(commssion_pct,0))
+	                                 *
+ERROR at line 2:
+ORA-00904: "COMMSSION_PCT": invalid identifier 
+
+
+HR@orcl>select employee_id, manager_id, salary, commission_pct,
+  2            coalesce(commssion_pct, manager_id, salary) result
+  3  from employees;
+          coalesce(commssion_pct, manager_id, salary) result
+                   *
+ERROR at line 2:
+ORA-00904: "COMMSSION_PCT": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, manager_id, salary, commission_pct,
+  2  coalesce(commssion_pct, manager_id, salary) result
+  3* from employees
+HR@orcl>/
+coalesce(commssion_pct, manager_id, salary) result
+         *
+ERROR at line 2:
+ORA-00904: "COMMSSION_PCT": invalid identifier 
+
+
+HR@orcl>select commission_pct from employees;
+
+COMMISSION_PCT                                                                                                          
+--------------                                                                                                          
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+
+COMMISSION_PCT                                                                                                          
+--------------                                                                                                          
+            .2                                                                                                          
+            .3                                                                                                          
+            .2                                                                                                          
+           .15                                                                                                          
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+
+20 rows selected.
+
+HR@orcl>cle scr
+HR@orcl>select employee_id, last_name, NVL(manager_id, 'No Manager')
+  2  from employees;
+select employee_id, last_name, NVL(manager_id, 'No Manager')
+                                               *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, last_name, NVL(to_char(manager_id), 'No Manager')
+  2* from employees
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                 NVL(TO_CHAR(MANAGER_ID),'NOMANAGER')                                              
+----------- ------------------------- ----------------------------------------                                          
+        100 King                      No Manager                                                                        
+        101 Kochhar                   100                                                                               
+        102 De Haan                   100                                                                               
+        103 Hunold                    102                                                                               
+        104 Ernst                     103                                                                               
+        107 Lorentz                   103                                                                               
+        124 Mourgos                   100                                                                               
+        141 Rajs                      124                                                                               
+        142 Davies                    124                                                                               
+        143 Matos                     124                                                                               
+        144 Vargas                    124                                                                               
+
+EMPLOYEE_ID LAST_NAME                 NVL(TO_CHAR(MANAGER_ID),'NOMANAGER')                                              
+----------- ------------------------- ----------------------------------------                                          
+        149 Zlotkey                   100                                                                               
+        174 Abel                      149                                                                               
+        176 Taylor                    149                                                                               
+        178 Grant                     149                                                                               
+        200 Whalen                    101                                                                               
+        201 Hartstein                 100                                                                               
+        202 Fay                       201                                                                               
+        205 Higgins                   101                                                                               
+        206 Gietz                     205                                                                               
+
+20 rows selected.
+
+HR@orcl>select last_name, job_id, salary,
+  2  		case job_id when 'IT_PROG' THEN 1.10*salary
+  3  		when
+  4  'ST_CLERK' then 1.15*salary
+  5  when 'SA_REP' then 1.20*salary
+  6  else salary end "REVISED_SALARY"
+  7  from employees;
+
+LAST_NAME                 JOB_ID         SALARY REVISED_SALARY                                                          
+------------------------- ---------- ---------- --------------                                                          
+King                      AD_PRES         24000          24000                                                          
+Kochhar                   AD_VP           17000          17000                                                          
+De Haan                   AD_VP           17000          17000                                                          
+Hunold                    IT_PROG          9000           9900                                                          
+Ernst                     IT_PROG          6000           6600                                                          
+Lorentz                   IT_PROG          4200           4620                                                          
+Mourgos                   ST_MAN           5800           5800                                                          
+Rajs                      ST_CLERK         3500           4025                                                          
+Davies                    ST_CLERK         3100           3565                                                          
+Matos                     ST_CLERK         2600           2990                                                          
+Vargas                    ST_CLERK         2500           2875                                                          
+
+LAST_NAME                 JOB_ID         SALARY REVISED_SALARY                                                          
+------------------------- ---------- ---------- --------------                                                          
+Zlotkey                   SA_MAN          10500          10500                                                          
+Abel                      SA_REP          11000          13200                                                          
+Taylor                    SA_REP           8600          10320                                                          
+Grant                     SA_REP           7000           8400                                                          
+Whalen                    AD_ASST          4400           4400                                                          
+Hartstein                 MK_MAN          13000          13000                                                          
+Fay                       MK_REP           6000           6000                                                          
+Higgins                   AC_MGR          12000          12000                                                          
+Gietz                     AC_ACCOUNT       8300           8300                                                          
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  		case job_id when 'IT_PROG' THEN 1.10*salary
+  3  		when 'ST_CLERK' then 1.15*salary
+  4                  when 'SA_REP' then 1.20*salary
+  5                  else salary end "REVISED_SALARY"
+  6* from employees
+HR@orcl>/
+
+LAST_NAME                 JOB_ID         SALARY REVISED_SALARY                                                          
+------------------------- ---------- ---------- --------------                                                          
+King                      AD_PRES         24000          24000                                                          
+Kochhar                   AD_VP           17000          17000                                                          
+De Haan                   AD_VP           17000          17000                                                          
+Hunold                    IT_PROG          9000           9900                                                          
+Ernst                     IT_PROG          6000           6600                                                          
+Lorentz                   IT_PROG          4200           4620                                                          
+Mourgos                   ST_MAN           5800           5800                                                          
+Rajs                      ST_CLERK         3500           4025                                                          
+Davies                    ST_CLERK         3100           3565                                                          
+Matos                     ST_CLERK         2600           2990                                                          
+Vargas                    ST_CLERK         2500           2875                                                          
+
+LAST_NAME                 JOB_ID         SALARY REVISED_SALARY                                                          
+------------------------- ---------- ---------- --------------                                                          
+Zlotkey                   SA_MAN          10500          10500                                                          
+Abel                      SA_REP          11000          13200                                                          
+Taylor                    SA_REP           8600          10320                                                          
+Grant                     SA_REP           7000           8400                                                          
+Whalen                    AD_ASST          4400           4400                                                          
+Hartstein                 MK_MAN          13000          13000                                                          
+Fay                       MK_REP           6000           6000                                                          
+Higgins                   AC_MGR          12000          12000                                                          
+Gietz                     AC_ACCOUNT       8300           8300                                                          
+
+20 rows selected.
+
+HR@orcl>select last_name, job_id, salary,
+  2  /
+select last_name, job_id, salary,
+                                *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case job_id, when 'IT_PROG' THEN salary*1.1
+  3  when 'ST_CLERK' then salary*1.15
+  4  when 'SA_REP' then salary*1.2
+  5  else salary
+  6  end as "Resived Salary"
+  7* from employees;
+HR@orcl>/
+case job_id, when 'IT_PROG' THEN salary*1.1
+                  *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case job_id  when 'IT_PROG' THEN salary*1.1
+  3  when 'ST_CLERK' then salary*1.15
+  4  when 'SA_REP' then salary*1.2
+  5  else salary
+  6  end AS "Resived Salary"
+  7* from employees;
+HR@orcl>/
+from employees;
+              *
+ERROR at line 7:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case job_id  when 'IT_PROG' THEN salary*1.1
+  3  when 'ST_CLERK' then salary*1.15
+  4  when 'SA_REP' then salary*1.2
+  5  else salary
+  6  end AS "Resived Salary"
+  7* from employees;
+HR@orcl>/
+from employees;
+              *
+ERROR at line 7:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case job_id  when 'IT_PROG' THEN salary*1.1
+  3  when 'ST_CLERK' then salary*1.15
+  4  when 'SA_REP' then salary*1.2
+  5  end AS "Resived Salary"
+  6* from employees;
+HR@orcl>/
+from employees;
+              *
+ERROR at line 6:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case job_id  when 'IT_PROG' THEN salary*1.1
+  3  when 'ST_CLERK' then salary*1.15
+  4  when 'SA_REP' then salary*1.2
+  5  end AS "Resived Salary"
+  6* from employees
+HR@orcl>/
+
+LAST_NAME                 JOB_ID         SALARY Resived Salary                                                          
+------------------------- ---------- ---------- --------------                                                          
+King                      AD_PRES         24000                                                                         
+Kochhar                   AD_VP           17000                                                                         
+De Haan                   AD_VP           17000                                                                         
+Hunold                    IT_PROG          9000           9900                                                          
+Ernst                     IT_PROG          6000           6600                                                          
+Lorentz                   IT_PROG          4200           4620                                                          
+Mourgos                   ST_MAN           5800                                                                         
+Rajs                      ST_CLERK         3500           4025                                                          
+Davies                    ST_CLERK         3100           3565                                                          
+Matos                     ST_CLERK         2600           2990                                                          
+Vargas                    ST_CLERK         2500           2875                                                          
+
+LAST_NAME                 JOB_ID         SALARY Resived Salary                                                          
+------------------------- ---------- ---------- --------------                                                          
+Zlotkey                   SA_MAN          10500                                                                         
+Abel                      SA_REP          11000          13200                                                          
+Taylor                    SA_REP           8600          10320                                                          
+Grant                     SA_REP           7000           8400                                                          
+Whalen                    AD_ASST          4400                                                                         
+Hartstein                 MK_MAN          13000                                                                         
+Fay                       MK_REP           6000                                                                         
+Higgins                   AC_MGR          12000                                                                         
+Gietz                     AC_ACCOUNT       8300                                                                         
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, job_id, salary,
+  2  case  when job_id = 'IT_PROG' THEN salary*1.1
+  3        when job_id = 'ST_CLERK' then salary*1.15
+  4        when job_id = 'SA_REP' then salary*1.2
+  5       else salary
+  6  end AS "Resived Salary"
+  7* from employees
+HR@orcl>/
+
+LAST_NAME                 JOB_ID         SALARY Resived Salary                                                          
+------------------------- ---------- ---------- --------------                                                          
+King                      AD_PRES         24000          24000                                                          
+Kochhar                   AD_VP           17000          17000                                                          
+De Haan                   AD_VP           17000          17000                                                          
+Hunold                    IT_PROG          9000           9900                                                          
+Ernst                     IT_PROG          6000           6600                                                          
+Lorentz                   IT_PROG          4200           4620                                                          
+Mourgos                   ST_MAN           5800           5800                                                          
+Rajs                      ST_CLERK         3500           4025                                                          
+Davies                    ST_CLERK         3100           3565                                                          
+Matos                     ST_CLERK         2600           2990                                                          
+Vargas                    ST_CLERK         2500           2875                                                          
+
+LAST_NAME                 JOB_ID         SALARY Resived Salary                                                          
+------------------------- ---------- ---------- --------------                                                          
+Zlotkey                   SA_MAN          10500          10500                                                          
+Abel                      SA_REP          11000          13200                                                          
+Taylor                    SA_REP           8600          10320                                                          
+Grant                     SA_REP           7000           8400                                                          
+Whalen                    AD_ASST          4400           4400                                                          
+Hartstein                 MK_MAN          13000          13000                                                          
+Fay                       MK_REP           6000           6000                                                          
+Higgins                   AC_MGR          12000          12000                                                          
+Gietz                     AC_ACCOUNT       8300           8300                                                          
+
+20 rows selected.
+
+HR@orcl>select employee_id, last_name, salary,
+  2  case when salary < 5000 then 'Low Salary'
+  3       when salary between 5000 and 10000 'Normal Salary'
+  4       when salary > 10000 'High Salary'
+  5       when salary > 20000 'Special
+  6  Salary'
+  7  END ;
+     when salary between 5000 and 10000 'Normal Salary'
+                                        *
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, last_name, salary,
+  2  case when salary < 5000 then 'Low Salary'
+  3       when salary between 5000 and 10000 then 'Normal Salary'
+  4       when salary > 10000 then 'High Salary'
+  5       when salary > 20000 then 'Special Salary'
+  6  END AS Grade
+  7* from employees
+HR@orcl>/
+
+EMPLOYEE_ID LAST_NAME                     SALARY GRADE                                                                  
+----------- ------------------------- ---------- --------------                                                         
+        100 King                           24000 High Salary                                                            
+        101 Kochhar                        17000 High Salary                                                            
+        102 De Haan                        17000 High Salary                                                            
+        103 Hunold                          9000 Normal Salary                                                          
+        104 Ernst                           6000 Normal Salary                                                          
+        107 Lorentz                         4200 Low Salary                                                             
+        124 Mourgos                         5800 Normal Salary                                                          
+        141 Rajs                            3500 Low Salary                                                             
+        142 Davies                          3100 Low Salary                                                             
+        143 Matos                           2600 Low Salary                                                             
+        144 Vargas                          2500 Low Salary                                                             
+
+EMPLOYEE_ID LAST_NAME                     SALARY GRADE                                                                  
+----------- ------------------------- ---------- --------------                                                         
+        149 Zlotkey                        10500 High Salary                                                            
+        174 Abel                           11000 High Salary                                                            
+        176 Taylor                          8600 Normal Salary                                                          
+        178 Grant                           7000 Normal Salary                                                          
+        200 Whalen                          4400 Low Salary                                                             
+        201 Hartstein                      13000 High Salary                                                            
+        202 Fay                             6000 Normal Salary                                                          
+        205 Higgins                        12000 High Salary                                                            
+        206 Gietz                           8300 Normal Salary                                                          
+
+20 rows selected.
+
+HR@orcl>select employee_id ;
+select employee_id 
+                  *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl>ed\
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case commission_pct is null then 'NOCOMM'
+  4       commission_pct is not null then 'COMM' AS bigo 
+  5* from employees
+HR@orcl>/
+case commission_pct is null then 'NOCOMM'
+                    *
+ERROR at line 3:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case commission_pct when is null then 'NOCOMM'
+  4       commission_pct when is not null then 'COMM' AS bigo 
+  5* from employees
+HR@orcl>/
+case commission_pct when is null then 'NOCOMM'
+                         *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case when commission_pct is null then 'NOCOMM'
+  4       when commission_pct is not null then 'COMM' AS bigo 
+  5* from employees
+HR@orcl>/
+     when commission_pct is not null then 'COMM' AS bigo 
+                                                 *
+ERROR at line 4:
+ORA-00905: missing keyword 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case when commission_pct is null then 'NOCOMM'
+  4       when commission_pct is not null then 'COMM' end AS bigo 
+  5* from employees
+HR@orcl>/
+
+EMPLOYEE_ID     INCOMM BIGO                                                                                             
+----------- ---------- ------                                                                                           
+        100      24000 NOCOMM                                                                                           
+        101      17000 NOCOMM                                                                                           
+        102      17000 NOCOMM                                                                                           
+        103       9000 NOCOMM                                                                                           
+        104       6000 NOCOMM                                                                                           
+        107       4200 NOCOMM                                                                                           
+        124       5800 NOCOMM                                                                                           
+        141       3500 NOCOMM                                                                                           
+        142       3100 NOCOMM                                                                                           
+        143       2600 NOCOMM                                                                                           
+        144       2500 NOCOMM                                                                                           
+
+EMPLOYEE_ID     INCOMM BIGO                                                                                             
+----------- ---------- ------                                                                                           
+        149      12600 COMM                                                                                             
+        174      14300 COMM                                                                                             
+        176      10320 COMM                                                                                             
+        178       8050 COMM                                                                                             
+        200       4400 NOCOMM                                                                                           
+        201      13000 NOCOMM                                                                                           
+        202       6000 NOCOMM                                                                                           
+        205      12000 NOCOMM                                                                                           
+        206       8300 NOCOMM                                                                                           
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case when commission_pct is null then 'NOCOMM'
+  4       when commission_pct is not null then 'COMM' end AS bigo 
+  5* from employees
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,
+  2         salary+salary*NVL(commission_pct,0) AS INCOMM, 
+  3  case when commission_pct is null then 'NOCOMM'
+  4       when commission_pct is not null then 'COMM' 
+  5       end AS bigo 
+  6* from employees
+HR@orcl>select last_name, salary,
+  2  decode (trunc(salary/2000, 0),
+  3                0, 0.00,
+  4                1, 0.09,
+  5                2, 0.20,
+  6                3, 0.30,
+  7                4, 0.40,
+  8                5, 0.42,
+  9                6, 0.44,
+ 10                   0.45) TAX_RATE
+ 11  from employees
+ 12  where department_id = 80;
+
+LAST_NAME                     SALARY   TAX_RATE                                                                         
+------------------------- ---------- ----------                                                                         
+Zlotkey                        10500        .42                                                                         
+Abel                           11000        .42                                                                         
+Taylor                          8600         .4                                                                         
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, salary,
+  2  decode (trunc(salary/2000, 0),
+  3                0, 0.00,
+  4                1, 0.09,
+  5                2, 0.20,
+  6                3, 0.30,
+  7                4, 0.40,
+  8                5, 0.42,
+  9                6, 0.44,
+ 10                   0.45) TAX_RATE
+ 11  from employees
+ 12* where department_id = 80
+HR@orcl>/
+
+LAST_NAME                     SALARY   TAX_RATE                                                                         
+------------------------- ---------- ----------                                                                         
+Zlotkey                        10500        .42                                                                         
+Abel                           11000        .42                                                                         
+Taylor                          8600         .4                                                                         
+
+HR@orcl>select min(salary), max(salary) from employees;
+
+MIN(SALARY) MAX(SALARY)                                                                                                 
+----------- -----------                                                                                                 
+       2500       24000                                                                                                 
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select min(hire_date), max(hire_date) from employees
+HR@orcl>/
+
+MIN(HIRE_ MAX(HIRE_                                                                                                     
+--------- ---------                                                                                                     
+17-JUN-87 29-JAN-00                                                                                                     
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select min(hire_date), max(hire_date),last_name from employees
+HR@orcl>/
+select min(hire_date), max(hire_date),last_name from employees
+                                      *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+HR@orcl>select avg(salary), sum(salary) from employees;
+
+AVG(SALARY) SUM(SALARY)                                                                                                 
+----------- -----------                                                                                                 
+       8775      175500                                                                                                 
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select avg(salary), sum(salary) from employees
+  2* where department_id in (50,60)
+HR@orcl>/
+
+AVG(SALARY) SUM(SALARY)                                                                                                 
+----------- -----------                                                                                                 
+     4587.5       36700                                                                                                 
+
+HR@orcl>select avg(commission_pct), avg(nvl(commission_pct,0))
+  2  from employees;
+
+AVG(COMMISSION_PCT) AVG(NVL(COMMISSION_PCT,0))                                                                          
+------------------- --------------------------                                                                          
+              .2125                      .0425                                                                          
+
+HR@orcl>
+HR@orcl>
+HR@orcl>select count(*), count(department_id), count(distinct department_id_
+  2  from employees;
+from employees
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select count(*), count(department_id), count(distinct department_id)
+  2* from employees
+HR@orcl>/
+
+  COUNT(*) COUNT(DEPARTMENT_ID) COUNT(DISTINCTDEPARTMENT_ID)                                                            
+---------- -------------------- ----------------------------                                                            
+        20                   19                            7                                                            
+
+HR@orcl>select last_name, salary,
+  2  case when salary/2000,
+  3  ;
+case when salary/2000,
+                     *
+ERROR at line 2:
+ORA-00920: invalid relational operator 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, salary,
+  2* case when salary/2000,
+  3  ed
+  4  /
+case when salary/2000,
+                     *
+ERROR at line 2:
+ORA-00920: invalid relational operator 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, salary,
+  2  case trunc(salary/2000) when 0 then 0.00
+  3  when 1 then 0.09
+  4  when 2 then 0.20
+  5  when 3 then 0.30
+  6  when 4 then 0.40
+  7  when 5 then 0.42
+  8  when 6 then 0.44
+  9  else 0.45 end AS tax_rate
+ 10  from employees
+ 11* where department_id = 80;
+ 12  /
+where department_id = 80;
+                        *
+ERROR at line 11:
+ORA-00911: invalid character 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select last_name, salary,
+  2  case trunc(salary/2000) when 0 then 0.00
+  3  when 1 then 0.09
+  4  when 2 then 0.20
+  5  when 3 then 0.30
+  6  when 4 then 0.40
+  7  when 5 then 0.42
+  8  when 6 then 0.44
+  9  else 0.45 end AS tax_rate
+ 10* from employees
+HR@orcl>/
+
+LAST_NAME                     SALARY   TAX_RATE                                                                         
+------------------------- ---------- ----------                                                                         
+King                           24000        .45                                                                         
+Kochhar                        17000        .45                                                                         
+De Haan                        17000        .45                                                                         
+Hunold                          9000         .4                                                                         
+Ernst                           6000         .3                                                                         
+Lorentz                         4200         .2                                                                         
+Mourgos                         5800         .2                                                                         
+Rajs                            3500        .09                                                                         
+Davies                          3100        .09                                                                         
+Matos                           2600        .09                                                                         
+Vargas                          2500        .09                                                                         
+
+LAST_NAME                     SALARY   TAX_RATE                                                                         
+------------------------- ---------- ----------                                                                         
+Zlotkey                        10500        .42                                                                         
+Abel                           11000        .42                                                                         
+Taylor                          8600         .4                                                                         
+Grant                           7000         .3                                                                         
+Whalen                          4400         .2                                                                         
+Hartstein                      13000        .44                                                                         
+Fay                             6000         .3                                                                         
+Higgins                        12000        .44                                                                         
+Gietz                           8300         .4                                                                         
+
+20 rows selected.
+
+HR@orcl>spool off

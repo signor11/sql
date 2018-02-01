@@ -1,0 +1,1362 @@
+HR@orcl>select employee_id, concat(first_name, last_name) name,
+  2  job_id, lenth (last_name),
+  3  instr(last_name, 'a') "Contains 'a'?"
+  4  from employees
+  5  where substr(job_id, 4) =
+  6  'REP' ;
+job_id, lenth (last_name),
+        *
+ERROR at line 2:
+ORA-00904: "LENTH": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, concat(first_name, last_name) NAME,
+  2  job_id, lenth (last_name),
+  3  instr(last_name, 'a') "Contains 'a'?"
+  4  from employees
+  5  where substr(job_id, 4) =
+  6* 'REP' 
+HR@orcl>/
+job_id, lenth (last_name),
+        *
+ERROR at line 2:
+ORA-00904: "LENTH": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, concat(first_name, last_name) NAME,
+  2  job_id, length (last_name),
+  3  instr(last_name, 'a') "Contains 'a'?"
+  4  from employees
+  5  where substr(job_id, 4) =
+  6* 'REP' 
+HR@orcl>/
+
+EMPLOYEE_ID NAME                                          JOB_ID     LENGTH(LAST_NAME) Contains 'a'?                    
+----------- --------------------------------------------- ---------- ----------------- -------------                    
+        174 EllenAbel                                     SA_REP                     4             0                    
+        176 JonathonTaylor                                SA_REP                     6             2                    
+        178 KimberelyGrant                                SA_REP                     5             3                    
+        202 PatFay                                        MK_REP                     3             2                    
+
+HR@orcl>select employee_id, lpad(last_name,9,'*') from employees;
+
+EMPLOYEE_ID LPAD(LAST_NAME,9,'*')                                                                                       
+----------- ------------------------------------                                                                        
+        174 *****Abel                                                                                                   
+        142 ***Davies                                                                                                   
+        102 **De Haan                                                                                                   
+        104 ****Ernst                                                                                                   
+        202 ******Fay                                                                                                   
+        206 ****Gietz                                                                                                   
+        178 ****Grant                                                                                                   
+        201 Hartstein                                                                                                   
+        205 **Higgins                                                                                                   
+        103 ***Hunold                                                                                                   
+        100 *****King                                                                                                   
+
+EMPLOYEE_ID LPAD(LAST_NAME,9,'*')                                                                                       
+----------- ------------------------------------                                                                        
+        101 **Kochhar                                                                                                   
+        107 **Lorentz                                                                                                   
+        143 ****Matos                                                                                                   
+        124 **Mourgos                                                                                                   
+        141 *****Rajs                                                                                                   
+        176 ***Taylor                                                                                                   
+        144 ***Vargas                                                                                                   
+        200 ***Whalen                                                                                                   
+        149 **Zlotkey                                                                                                   
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, lpad(last_name,9,'*') from employees
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, replace(last_name,1,3,'*') from employees
+HR@orcl>/
+select employee_id, replace(last_name,1,3,'*') from employees
+                    *
+ERROR at line 1:
+ORA-00939: too many arguments for function 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, lpad(substr(last_name,4,6),'*') from employees
+HR@orcl>/
+select employee_id, lpad(substr(last_name,4,6),'*') from employees
+                                               *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, substr(last_name,4,6) from employees
+HR@orcl>/
+
+EMPLOYEE_ID SUBSTR(LAST_NAME,4,6)                                                                                       
+----------- ------------------------                                                                                    
+        174 l                                                                                                           
+        142 ies                                                                                                         
+        102 Haan                                                                                                        
+        104 st                                                                                                          
+        202                                                                                                             
+        206 tz                                                                                                          
+        178 nt                                                                                                          
+        201 tstein                                                                                                      
+        205 gins                                                                                                        
+        103 old                                                                                                         
+        100 g                                                                                                           
+
+EMPLOYEE_ID SUBSTR(LAST_NAME,4,6)                                                                                       
+----------- ------------------------                                                                                    
+        101 hhar                                                                                                        
+        107 entz                                                                                                        
+        143 os                                                                                                          
+        124 rgos                                                                                                        
+        141 s                                                                                                           
+        176 lor                                                                                                         
+        144 gas                                                                                                         
+        200 len                                                                                                         
+        149 tkey                                                                                                        
+
+20 rows selected.
+
+HR@orcl>
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, lpad(substr(last_name,4,6),'*') from employees
+HR@orcl>/
+select employee_id, lpad(substr(last_name,4,6),'*') from employees
+                                               *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select employee_id, lpad(substr(last_name,4,6),10,'*') from employees
+HR@orcl>/
+
+EMPLOYEE_ID LPAD(SUBSTR(LAST_NAME,4,6),10,'*')                                                                          
+----------- ----------------------------------------                                                                    
+        174 *********l                                                                                                  
+        142 *******ies                                                                                                  
+        102 ******Haan                                                                                                  
+        104 ********st                                                                                                  
+        202                                                                                                             
+        206 ********tz                                                                                                  
+        178 ********nt                                                                                                  
+        201 ****tstein                                                                                                  
+        205 ******gins                                                                                                  
+        103 *******old                                                                                                  
+        100 *********g                                                                                                  
+
+EMPLOYEE_ID LPAD(SUBSTR(LAST_NAME,4,6),10,'*')                                                                          
+----------- ----------------------------------------                                                                    
+        101 ******hhar                                                                                                  
+        107 ******entz                                                                                                  
+        143 ********os                                                                                                  
+        124 ******rgos                                                                                                  
+        141 *********s                                                                                                  
+        176 *******lor                                                                                                  
+        144 *******gas                                                                                                  
+        200 *******len                                                                                                  
+        149 ******tkey                                                                                                  
+
+20 rows selected.
+
+HR@orcl>select employee_id, replace(last_name, substr(last_name,1,3), '***') last_name from employees;
+
+EMPLOYEE_ID LAST_NAME                                                                                                   
+----------- ---------------------------------------------------------------------------                                 
+        174 ***l                                                                                                        
+        142 ***ies                                                                                                      
+        102 ***Haan                                                                                                     
+        104 ***st                                                                                                       
+        202 ***                                                                                                         
+        206 ***tz                                                                                                       
+        178 ***nt                                                                                                       
+        201 ***tstein                                                                                                   
+        205 ***gins                                                                                                     
+        103 ***old                                                                                                      
+        100 ***g                                                                                                        
+
+EMPLOYEE_ID LAST_NAME                                                                                                   
+----------- ---------------------------------------------------------------------------                                 
+        101 ***hhar                                                                                                     
+        107 ***entz                                                                                                     
+        143 ***os                                                                                                       
+        124 ***rgos                                                                                                     
+        141 ***s                                                                                                        
+        176 ***lor                                                                                                      
+        144 ***gas                                                                                                      
+        200 ***len                                                                                                      
+        149 ***tkey                                                                                                     
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, replace(last_name, substr(last_name,1,3), '***') last_name 
+  2* from employees
+HR@orcl>
+HR@orcl>
+HR@orcl>select round(45.923,2), round(45.923,0),
+  2  round(45.923,-1)
+  3  dual;
+dual
+   *
+ERROR at line 3:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select round(45.923,2), round(45.923,0),
+  2  round(45.923,-1)
+  3* from dual
+HR@orcl>/
+
+ROUND(45.923,2) ROUND(45.923,0) ROUND(45.923,-1)                                                                        
+--------------- --------------- ----------------                                                                        
+          45.92              46               50                                                                        
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select trunc(45.923,2), trunc(45.923,0),
+  2  trunc(45.923,-1)
+  3* from dual
+HR@orcl>/
+
+TRUNC(45.923,2) TRUNC(45.923,0) TRUNC(45.923,-1)                                                                        
+--------------- --------------- ----------------                                                                        
+          45.92              45               40                                                                        
+
+HR@orcl>select last_name, salary, mod(salary, 5000)
+  2  from employees
+  3  where job_id = 'SA_REP';
+
+LAST_NAME                     SALARY MOD(SALARY,5000)                                                                   
+------------------------- ---------- ----------------                                                                   
+Abel                           11000             1000                                                                   
+Taylor                          8600             3600                                                                   
+Grant                           7000             2000                                                                   
+
+HR@orcl>select employee_id, last_name, hire_date
+  2  from employees;
+
+EMPLOYEE_ID LAST_NAME                 HIRE_DATE                                                                         
+----------- ------------------------- ---------                                                                         
+        100 King                      17-JUN-87                                                                         
+        101 Kochhar                   21-SEP-89                                                                         
+        102 De Haan                   13-JAN-93                                                                         
+        103 Hunold                    03-JAN-90                                                                         
+        104 Ernst                     21-MAY-91                                                                         
+        107 Lorentz                   07-FEB-99                                                                         
+        124 Mourgos                   16-NOV-99                                                                         
+        141 Rajs                      17-OCT-95                                                                         
+        142 Davies                    29-JAN-97                                                                         
+        143 Matos                     15-MAR-98                                                                         
+        144 Vargas                    09-JUL-98                                                                         
+
+EMPLOYEE_ID LAST_NAME                 HIRE_DATE                                                                         
+----------- ------------------------- ---------                                                                         
+        149 Zlotkey                   29-JAN-00                                                                         
+        174 Abel                      11-MAY-96                                                                         
+        176 Taylor                    24-MAR-98                                                                         
+        178 Grant                     24-MAY-99                                                                         
+        200 Whalen                    17-SEP-87                                                                         
+        201 Hartstein                 17-FEB-96                                                                         
+        202 Fay                       17-AUG-97                                                                         
+        205 Higgins                   07-JUN-94                                                                         
+        206 Gietz                     07-JUN-94                                                                         
+
+20 rows selected.
+
+HR@orcl>desc employees;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>select sysdate from dual;
+
+SYSDATE                                                                                                                 
+---------                                                                                                               
+23-JAN-18                                                                                                               
+
+HR@orcl>select systime from dual;
+select systime from dual
+       *
+ERROR at line 1:
+ORA-00904: "SYSTIME": invalid identifier 
+
+
+HR@orcl>select datetime from dual;
+select datetime from dual
+       *
+ERROR at line 1:
+ORA-00904: "DATETIME": invalid identifier 
+
+
+HR@orcl>alter system set nls_date_format='yyyy/mm/dd hh24:mi:ss'
+  2  ed
+  3  '
+  4  /
+alter system set nls_date_format='yyyy/mm/dd hh24:mi:ss'
+                 *
+ERROR at line 1:
+ORA-02096: specified initialization parameter is not modifiable with this option 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* alter session set nls_date_format='yyyy/mm/dd hh24:mi:ss'
+  2  /
+
+Session altered.
+
+HR@orcl>select sysdate from dual;
+
+SYSDATE                                                                                                                 
+-------------------                                                                                                     
+2018/01/23 11:24:05                                                                                                     
+
+HR@orcl>sys ===== server's time
+SP2-0734: unknown command beginning "sys ===== ..." - rest of line ignored.
+HR@orcl>select employee_id, hire_date from employees;
+
+EMPLOYEE_ID HIRE_DATE                                                                                                   
+----------- -------------------                                                                                         
+        100 1987/06/17 00:00:00                                                                                         
+        101 1989/09/21 00:00:00                                                                                         
+        102 1993/01/13 00:00:00                                                                                         
+        103 1990/01/03 00:00:00                                                                                         
+        104 1991/05/21 00:00:00                                                                                         
+        107 1999/02/07 00:00:00                                                                                         
+        124 1999/11/16 00:00:00                                                                                         
+        141 1995/10/17 00:00:00                                                                                         
+        142 1997/01/29 00:00:00                                                                                         
+        143 1998/03/15 00:00:00                                                                                         
+        144 1998/07/09 00:00:00                                                                                         
+
+EMPLOYEE_ID HIRE_DATE                                                                                                   
+----------- -------------------                                                                                         
+        149 2000/01/29 00:00:00                                                                                         
+        174 1996/05/11 00:00:00                                                                                         
+        176 1998/03/24 00:00:00                                                                                         
+        178 1999/05/24 00:00:00                                                                                         
+        200 1987/09/17 00:00:00                                                                                         
+        201 1996/02/17 00:00:00                                                                                         
+        202 1997/08/17 00:00:00                                                                                         
+        205 1994/06/07 00:00:00                                                                                         
+        206 1994/06/07 00:00:00                                                                                         
+
+20 rows selected.
+
+HR@orcl>select sysdate, sysdate+10 from dual;
+
+SYSDATE             SYSDATE+10                                                                                          
+------------------- -------------------                                                                                 
+2018/01/23 11:30:28 2018/02/02 11:30:28                                                                                 
+
+HR@orcl>select employee_id, sysdate-hire_date from employees
+  2  where department_id = 50;
+
+EMPLOYEE_ID SYSDATE-HIRE_DATE                                                                                           
+----------- -----------------                                                                                           
+        124        6643.48035                                                                                           
+        141        8134.48035                                                                                           
+        142        7664.48035                                                                                           
+        143        7254.48035                                                                                           
+        144        7138.48035                                                                                           
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, trunk(sysdate-hire_date,0) from employees
+  2* where department_id = 50
+HR@orcl>/
+select employee_id, trunk(sysdate-hire_date,0) from employees
+                    *
+ERROR at line 1:
+ORA-00904: "TRUNK": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, trunc(sysdate-hire_date,0) from employees
+  2* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID TRUNC(SYSDATE-HIRE_DATE,0)                                                                                  
+----------- --------------------------                                                                                  
+        124                       6643                                                                                  
+        141                       8134                                                                                  
+        142                       7664                                                                                  
+        143                       7254                                                                                  
+        144                       7138                                                                                  
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, trunc(sysdate-hire_date) from employees
+  2* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID TRUNC(SYSDATE-HIRE_DATE)                                                                                    
+----------- ------------------------                                                                                    
+        124                     6643                                                                                    
+        141                     8134                                                                                    
+        142                     7664                                                                                    
+        143                     7254                                                                                    
+        144                     7138                                                                                    
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, trunc((sysdate-hire_date)/7) from employees
+  2* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID TRUNC((SYSDATE-HIRE_DATE)/7)                                                                                
+----------- ----------------------------                                                                                
+        124                          949                                                                                
+        141                         1162                                                                                
+        142                         1094                                                                                
+        143                         1036                                                                                
+        144                         1019                                                                                
+
+HR@orcl>select sysdate, sysdate+1/24 from dual;
+
+SYSDATE             SYSDATE+1/24                                                                                        
+------------------- -------------------                                                                                 
+2018/01/23 11:36:22 2018/01/23 12:36:22                                                                                 
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select sysdate, sysdate+30/(24*60) from dual
+HR@orcl>/
+
+SYSDATE             SYSDATE+30/(24*60)                                                                                  
+------------------- -------------------                                                                                 
+2018/01/23 11:37:51 2018/01/23 12:07:51                                                                                 
+
+HR@orcl>select employee_id, months_between(sysdate, hire_date)
+  2  from employees
+  3  where department_id = 50;
+
+EMPLOYEE_ID MONTHS_BETWEEN(SYSDATE,HIRE_DATE)                                                                           
+----------- ---------------------------------                                                                           
+        124                        218.241576                                                                           
+        141                        267.209318                                                                           
+        142                        251.822221                                                                           
+        143                        238.273834                                                                           
+        144                        234.467382                                                                           
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, months_between(sysdate, hire_date)
+  2  from employees
+  3* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID MONTHS_BETWEEN(SYSDATE,HIRE_DATE)                                                                           
+----------- ---------------------------------                                                                           
+        124                        218.241606                                                                           
+        141                        267.209348                                                                           
+        142                        251.822251                                                                           
+        143                        238.273864                                                                           
+        144                        234.467412                                                                           
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, add_months(hiredate,6)
+  2  from employees
+  3* where department_id = 50
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, add_months(hire_date,6)
+  2  from employees
+  3* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID ADD_MONTHS(HIRE_DAT                                                                                         
+----------- -------------------                                                                                         
+        124 2000/05/16 00:00:00                                                                                         
+        141 1996/04/17 00:00:00                                                                                         
+        142 1997/07/29 00:00:00                                                                                         
+        143 1998/09/15 00:00:00                                                                                         
+        144 1999/01/09 00:00:00                                                                                         
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, hire_date, add_months(hire_date,120)
+  2  from employees
+  3* where department_id = 50
+HR@orcl>/
+
+EMPLOYEE_ID HIRE_DATE           ADD_MONTHS(HIRE_DAT                                                                     
+----------- ------------------- -------------------                                                                     
+        124 1999/11/16 00:00:00 2009/11/16 00:00:00                                                                     
+        141 1995/10/17 00:00:00 2005/10/17 00:00:00                                                                     
+        142 1997/01/29 00:00:00 2007/01/29 00:00:00                                                                     
+        143 1998/03/15 00:00:00 2008/03/15 00:00:00                                                                     
+        144 1998/07/09 00:00:00 2008/07/09 00:00:00                                                                     
+
+HR@orcl>select sysdate, next_day(sysdate,'sunday') from dual;
+
+SYSDATE             NEXT_DAY(SYSDATE,'S                                                                                 
+------------------- -------------------                                                                                 
+2018/01/23 11:48:54 2018/01/28 11:48:54                                                                                 
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select sysdate, next_day(sysdate,1) from dual
+HR@orcl>/
+
+SYSDATE             NEXT_DAY(SYSDATE,1)                                                                                 
+------------------- -------------------                                                                                 
+2018/01/23 11:50:47 2018/01/28 11:50:47                                                                                 
+
+HR@orcl>select * from *
+  2  ;
+select * from *
+              *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+HR@orcl>select * from tab
+  2  ;
+
+TNAME                          TABTYPE  CLUSTERID                                                                       
+------------------------------ ------- ----------                                                                       
+COUNTRIES                      TABLE                                                                                    
+DEPARTMENTS                    TABLE                                                                                    
+EMPLOYEES                      TABLE                                                                                    
+JOBS                           TABLE                                                                                    
+JOB_GRADES                     TABLE                                                                                    
+JOB_HISTORY                    TABLE                                                                                    
+LOCATIONS                      TABLE                                                                                    
+REGIONS                        TABLE                                                                                    
+
+8 rows selected.
+
+HR@orcl>select * from countries;
+
+CO COUNTRY_NAME                              REGION_ID                                                                  
+-- ---------------------------------------- ----------                                                                  
+CA Canada                                            2                                                                  
+DE Germany                                           1                                                                  
+UK United Kingdom                                    1                                                                  
+US United States of America                          2                                                                  
+
+HR@orcl>desc tabs;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ TABLE_NAME                                                        NOT NULL VARCHAR2(30)
+ TABLESPACE_NAME                                                            VARCHAR2(30)
+ CLUSTER_NAME                                                               VARCHAR2(30)
+ IOT_NAME                                                                   VARCHAR2(30)
+ STATUS                                                                     VARCHAR2(8)
+ PCT_FREE                                                                   NUMBER
+ PCT_USED                                                                   NUMBER
+ INI_TRANS                                                                  NUMBER
+ MAX_TRANS                                                                  NUMBER
+ INITIAL_EXTENT                                                             NUMBER
+ NEXT_EXTENT                                                                NUMBER
+ MIN_EXTENTS                                                                NUMBER
+ MAX_EXTENTS                                                                NUMBER
+ PCT_INCREASE                                                               NUMBER
+ FREELISTS                                                                  NUMBER
+ FREELIST_GROUPS                                                            NUMBER
+ LOGGING                                                                    VARCHAR2(3)
+ BACKED_UP                                                                  VARCHAR2(1)
+ NUM_ROWS                                                                   NUMBER
+ BLOCKS                                                                     NUMBER
+ EMPTY_BLOCKS                                                               NUMBER
+ AVG_SPACE                                                                  NUMBER
+ CHAIN_CNT                                                                  NUMBER
+ AVG_ROW_LEN                                                                NUMBER
+ AVG_SPACE_FREELIST_BLOCKS                                                  NUMBER
+ NUM_FREELIST_BLOCKS                                                        NUMBER
+ DEGREE                                                                     VARCHAR2(10)
+ INSTANCES                                                                  VARCHAR2(10)
+ CACHE                                                                      VARCHAR2(5)
+ TABLE_LOCK                                                                 VARCHAR2(8)
+ SAMPLE_SIZE                                                                NUMBER
+ LAST_ANALYZED                                                              DATE
+ PARTITIONED                                                                VARCHAR2(3)
+ IOT_TYPE                                                                   VARCHAR2(12)
+ TEMPORARY                                                                  VARCHAR2(1)
+ SECONDARY                                                                  VARCHAR2(1)
+ NESTED                                                                     VARCHAR2(3)
+ BUFFER_POOL                                                                VARCHAR2(7)
+ FLASH_CACHE                                                                VARCHAR2(7)
+ CELL_FLASH_CACHE                                                           VARCHAR2(7)
+ ROW_MOVEMENT                                                               VARCHAR2(8)
+ GLOBAL_STATS                                                               VARCHAR2(3)
+ USER_STATS                                                                 VARCHAR2(3)
+ DURATION                                                                   VARCHAR2(15)
+ SKIP_CORRUPT                                                               VARCHAR2(8)
+ MONITORING                                                                 VARCHAR2(3)
+ CLUSTER_OWNER                                                              VARCHAR2(30)
+ DEPENDENCIES                                                               VARCHAR2(8)
+ COMPRESSION                                                                VARCHAR2(8)
+ COMPRESS_FOR                                                               VARCHAR2(12)
+ DROPPED                                                                    VARCHAR2(3)
+ READ_ONLY                                                                  VARCHAR2(3)
+ SEGMENT_CREATED                                                            VARCHAR2(3)
+ RESULT_CACHE                                                               VARCHAR2(7)
+
+HR@orcl>select * from employees;
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        100 Steven               King                      SKING                     515.123.4567                       
+1987/06/17 00:00:00 AD_PRES         24000                                      90                                       
+                                                                                                                        
+        101 Neena                Kochhar                   NKOCHHAR                  515.123.4568                       
+1989/09/21 00:00:00 AD_VP           17000                       100            90                                       
+                                                                                                                        
+        102 Lex                  De Haan                   LDEHAAN                   515.123.4569                       
+1993/01/13 00:00:00 AD_VP           17000                       100            90                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        103 Alexander            Hunold                    AHUNOLD                   590.423.4567                       
+1990/01/03 00:00:00 IT_PROG          9000                       102            60                                       
+                                                                                                                        
+        104 Bruce                Ernst                     BERNST                    590.423.4568                       
+1991/05/21 00:00:00 IT_PROG          6000                       103            60                                       
+                                                                                                                        
+        107 Diana                Lorentz                   DLORENTZ                  590.423.5567                       
+1999/02/07 00:00:00 IT_PROG          4200                       103            60                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        124 Kevin                Mourgos                   KMOURGOS                  650.123.5234                       
+1999/11/16 00:00:00 ST_MAN           5800                       100            50                                       
+                                                                                                                        
+        141 Trenna               Rajs                      TRAJS                     650.121.8009                       
+1995/10/17 00:00:00 ST_CLERK         3500                       124            50                                       
+                                                                                                                        
+        142 Curtis               Davies                    CDAVIES                   650.121.2994                       
+1997/01/29 00:00:00 ST_CLERK         3100                       124            50                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        143 Randall              Matos                     RMATOS                    650.121.2874                       
+1998/03/15 00:00:00 ST_CLERK         2600                       124            50                                       
+                                                                                                                        
+        144 Peter                Vargas                    PVARGAS                   650.121.2004                       
+1998/07/09 00:00:00 ST_CLERK         2500                       124            50                                       
+                                                                                                                        
+        149 Eleni                Zlotkey                   EZLOTKEY                  011.44.1344.429018                 
+2000/01/29 00:00:00 SA_MAN          10500             .2        100            80                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        174 Ellen                Abel                      EABEL                     011.44.1644.429267                 
+1996/05/11 00:00:00 SA_REP          11000             .3        149            80                                       
+                                                                                                                        
+        176 Jonathon             Taylor                    JTAYLOR                   011.44.1644.429265                 
+1998/03/24 00:00:00 SA_REP           8600             .2        149            80                                       
+                                                                                                                        
+        178 Kimberely            Grant                     KGRANT                    011.44.1644.429263                 
+1999/05/24 00:00:00 SA_REP           7000            .15        149                                                     
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        200 Jennifer             Whalen                    JWHALEN                   515.123.4444                       
+1987/09/17 00:00:00 AD_ASST          4400                       101            10                                       
+                                                                                                                        
+        201 Michael              Hartstein                 MHARTSTE                  515.123.5555                       
+1996/02/17 00:00:00 MK_MAN          13000                       100            20                                       
+                                                                                                                        
+        202 Pat                  Fay                       PFAY                      603.123.6666                       
+1997/08/17 00:00:00 MK_REP           6000                       201            20                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        205 Shelley              Higgins                   SHIGGINS                  515.123.8080                       
+1994/06/07 00:00:00 AC_MGR          12000                       101           110                                       
+                                                                                                                        
+        206 William              Gietz                     WGIETZ                    515.123.8181                       
+1994/06/07 00:00:00 AC_ACCOUNT       8300                       205           110                                       
+                                                                                                                        
+
+20 rows selected.
+
+HR@orcl>select * from employees
+  2  order by salary desc;
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        100 Steven               King                      SKING                     515.123.4567                       
+1987/06/17 00:00:00 AD_PRES         24000                                      90                                       
+                                                                                                                        
+        101 Neena                Kochhar                   NKOCHHAR                  515.123.4568                       
+1989/09/21 00:00:00 AD_VP           17000                       100            90                                       
+                                                                                                                        
+        102 Lex                  De Haan                   LDEHAAN                   515.123.4569                       
+1993/01/13 00:00:00 AD_VP           17000                       100            90                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        201 Michael              Hartstein                 MHARTSTE                  515.123.5555                       
+1996/02/17 00:00:00 MK_MAN          13000                       100            20                                       
+                                                                                                                        
+        205 Shelley              Higgins                   SHIGGINS                  515.123.8080                       
+1994/06/07 00:00:00 AC_MGR          12000                       101           110                                       
+                                                                                                                        
+        174 Ellen                Abel                      EABEL                     011.44.1644.429267                 
+1996/05/11 00:00:00 SA_REP          11000             .3        149            80                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        149 Eleni                Zlotkey                   EZLOTKEY                  011.44.1344.429018                 
+2000/01/29 00:00:00 SA_MAN          10500             .2        100            80                                       
+                                                                                                                        
+        103 Alexander            Hunold                    AHUNOLD                   590.423.4567                       
+1990/01/03 00:00:00 IT_PROG          9000                       102            60                                       
+                                                                                                                        
+        176 Jonathon             Taylor                    JTAYLOR                   011.44.1644.429265                 
+1998/03/24 00:00:00 SA_REP           8600             .2        149            80                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        206 William              Gietz                     WGIETZ                    515.123.8181                       
+1994/06/07 00:00:00 AC_ACCOUNT       8300                       205           110                                       
+                                                                                                                        
+        178 Kimberely            Grant                     KGRANT                    011.44.1644.429263                 
+1999/05/24 00:00:00 SA_REP           7000            .15        149                                                     
+                                                                                                                        
+        104 Bruce                Ernst                     BERNST                    590.423.4568                       
+1991/05/21 00:00:00 IT_PROG          6000                       103            60                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        202 Pat                  Fay                       PFAY                      603.123.6666                       
+1997/08/17 00:00:00 MK_REP           6000                       201            20                                       
+                                                                                                                        
+        124 Kevin                Mourgos                   KMOURGOS                  650.123.5234                       
+1999/11/16 00:00:00 ST_MAN           5800                       100            50                                       
+                                                                                                                        
+        200 Jennifer             Whalen                    JWHALEN                   515.123.4444                       
+1987/09/17 00:00:00 AD_ASST          4400                       101            10                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        107 Diana                Lorentz                   DLORENTZ                  590.423.5567                       
+1999/02/07 00:00:00 IT_PROG          4200                       103            60                                       
+                                                                                                                        
+        141 Trenna               Rajs                      TRAJS                     650.121.8009                       
+1995/10/17 00:00:00 ST_CLERK         3500                       124            50                                       
+                                                                                                                        
+        142 Curtis               Davies                    CDAVIES                   650.121.2994                       
+1997/01/29 00:00:00 ST_CLERK         3100                       124            50                                       
+                                                                                                                        
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                     PHONE_NUMBER                       
+----------- -------------------- ------------------------- ------------------------- --------------------               
+HIRE_DATE           JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                       
+------------------- ---------- ---------- -------------- ---------- -------------                                       
+        143 Randall              Matos                     RMATOS                    650.121.2874                       
+1998/03/15 00:00:00 ST_CLERK         2600                       124            50                                       
+                                                                                                                        
+        144 Peter                Vargas                    PVARGAS                   650.121.2004                       
+1998/07/09 00:00:00 ST_CLERK         2500                       124            50                                       
+                                                                                                                        
+
+20 rows selected.
+
+HR@orcl>cle scr
+HR@orcl>select deptno, count(*), sum(sal)
+  2  from employees
+  3  group by deptno
+  4  having count(*)>4
+  5  /
+group by deptno
+         *
+ERROR at line 3:
+ORA-00904: "DEPTNO": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_name, count(*), sum(sal)
+  2  from employees
+  3  group by deptno
+  4* having count(*)>4
+HR@orcl>/
+group by deptno
+         *
+ERROR at line 3:
+ORA-00904: "DEPTNO": invalid identifier 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select department_name, count(*), sum(sal)
+  2  from employees
+  3  group by department_name
+  4* having count(*)>4
+HR@orcl>/\
+group by department_name
+         *
+ERROR at line 3:
+ORA-00904: "DEPARTMENT_NAME": invalid identifier 
+
+
+HR@orcl>/
+group by department_name
+         *
+ERROR at line 3:
+ORA-00904: "DEPARTMENT_NAME": invalid identifier 
+
+
+HR@orcl>
+HR@orcl>
+HR@orcl>
+HR@orcl>select round(sysdate,'dd') from dual;
+
+ROUND(SYSDATE,'DD')                                                                                                     
+-------------------                                                                                                     
+2018/01/24 00:00:00                                                                                                     
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select round(sysdate,'mm') from dual
+HR@orcl>/
+
+ROUND(SYSDATE,'MM')                                                                                                     
+-------------------                                                                                                     
+2018/02/01 00:00:00                                                                                                     
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select round(sysdate,'yy') from dual
+HR@orcl>/
+
+ROUND(SYSDATE,'YY')                                                                                                     
+-------------------                                                                                                     
+2018/01/01 00:00:00                                                                                                     
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select round(sysdate,'d') from dual
+HR@orcl>/
+
+ROUND(SYSDATE,'D')                                                                                                      
+-------------------                                                                                                     
+2018/01/21 00:00:00                                                                                                     
+
+HR@orcl>select employee_id, hire_date, months_between (sysdate, hire_date) TENURE,
+  2  add_months (hire_date, 6) REVIEW, next_day (hire_date, 'FRIDAY'),
+  3  last_day(hire_date)
+  4  from employees;
+
+EMPLOYEE_ID HIRE_DATE               TENURE REVIEW              NEXT_DAY(HIRE_DATE, LAST_DAY(HIRE_DATE)                  
+----------- ------------------- ---------- ------------------- ------------------- -------------------                  
+        100 1987/06/17 00:00:00 367.210011 1987/12/17 00:00:00 1987/06/19 00:00:00 1987/06/30 00:00:00                  
+        101 1989/09/21 00:00:00 340.080979 1990/03/21 00:00:00 1989/09/22 00:00:00 1989/09/30 00:00:00                  
+        102 1993/01/13 00:00:00 300.339043 1993/07/13 00:00:00 1993/01/15 00:00:00 1993/01/31 00:00:00                  
+        103 1990/01/03 00:00:00 336.661624 1990/07/03 00:00:00 1990/01/05 00:00:00 1990/01/31 00:00:00                  
+        104 1991/05/21 00:00:00 320.080979 1991/11/21 00:00:00 1991/05/24 00:00:00 1991/05/31 00:00:00                  
+        107 1999/02/07 00:00:00 227.532591 1999/08/07 00:00:00 1999/02/12 00:00:00 1999/02/28 00:00:00                  
+        124 1999/11/16 00:00:00 218.242269 2000/05/16 00:00:00 1999/11/19 00:00:00 1999/11/30 00:00:00                  
+        141 1995/10/17 00:00:00 267.210011 1996/04/17 00:00:00 1995/10/20 00:00:00 1995/10/31 00:00:00                  
+        142 1997/01/29 00:00:00 251.822914 1997/07/29 00:00:00 1997/01/31 00:00:00 1997/01/31 00:00:00                  
+        143 1998/03/15 00:00:00 238.274527 1998/09/15 00:00:00 1998/03/20 00:00:00 1998/03/31 00:00:00                  
+        144 1998/07/09 00:00:00 234.468075 1999/01/09 00:00:00 1998/07/10 00:00:00 1998/07/31 00:00:00                  
+
+EMPLOYEE_ID HIRE_DATE               TENURE REVIEW              NEXT_DAY(HIRE_DATE, LAST_DAY(HIRE_DATE)                  
+----------- ------------------- ---------- ------------------- ------------------- -------------------                  
+        149 2000/01/29 00:00:00 215.822914 2000/07/29 00:00:00 2000/02/04 00:00:00 2000/01/31 00:00:00                  
+        174 1996/05/11 00:00:00 260.403559 1996/11/11 00:00:00 1996/05/17 00:00:00 1996/05/31 00:00:00                  
+        176 1998/03/24 00:00:00 237.984204 1998/09/24 00:00:00 1998/03/27 00:00:00 1998/03/31 00:00:00                  
+        178 1999/05/24 00:00:00 223.984204 1999/11/24 00:00:00 1999/05/28 00:00:00 1999/05/31 00:00:00                  
+        200 1987/09/17 00:00:00 364.210011 1988/03/17 00:00:00 1987/09/18 00:00:00 1987/09/30 00:00:00                  
+        201 1996/02/17 00:00:00 263.210011 1996/08/17 00:00:00 1996/02/23 00:00:00 1996/02/29 00:00:00                  
+        202 1997/08/17 00:00:00 245.210011 1998/02/17 00:00:00 1997/08/22 00:00:00 1997/08/31 00:00:00                  
+        205 1994/06/07 00:00:00 283.532591 1994/12/07 00:00:00 1994/06/10 00:00:00 1994/06/30 00:00:00                  
+        206 1994/06/07 00:00:00 283.532591 1994/12/07 00:00:00 1994/06/10 00:00:00 1994/06/30 00:00:00                  
+
+20 rows selected.
+
+HR@orcl>conn hr/hr
+Connected.
+HR@orcl>/
+
+EMPLOYEE_ID HIRE_DATE     TENURE REVIEW    NEXT_DAY( LAST_DAY(                                                          
+----------- --------- ---------- --------- --------- ---------                                                          
+        100 17-JUN-87 367.210072 17-DEC-87 19-JUN-87 30-JUN-87                                                          
+        101 21-SEP-89  340.08104 21-MAR-90 22-SEP-89 30-SEP-89                                                          
+        102 13-JAN-93 300.339104 13-JUL-93 15-JAN-93 31-JAN-93                                                          
+        103 03-JAN-90 336.661685 03-JUL-90 05-JAN-90 31-JAN-90                                                          
+        104 21-MAY-91  320.08104 21-NOV-91 24-MAY-91 31-MAY-91                                                          
+        107 07-FEB-99 227.532653 07-AUG-99 12-FEB-99 28-FEB-99                                                          
+        124 16-NOV-99  218.24233 16-MAY-00 19-NOV-99 30-NOV-99                                                          
+        141 17-OCT-95 267.210072 17-APR-96 20-OCT-95 31-OCT-95                                                          
+        142 29-JAN-97 251.822975 29-JUL-97 31-JAN-97 31-JAN-97                                                          
+        143 15-MAR-98 238.274588 15-SEP-98 20-MAR-98 31-MAR-98                                                          
+        144 09-JUL-98 234.468137 09-JAN-99 10-JUL-98 31-JUL-98                                                          
+
+EMPLOYEE_ID HIRE_DATE     TENURE REVIEW    NEXT_DAY( LAST_DAY(                                                          
+----------- --------- ---------- --------- --------- ---------                                                          
+        149 29-JAN-00 215.822975 29-JUL-00 04-FEB-00 31-JAN-00                                                          
+        174 11-MAY-96  260.40362 11-NOV-96 17-MAY-96 31-MAY-96                                                          
+        176 24-MAR-98 237.984266 24-SEP-98 27-MAR-98 31-MAR-98                                                          
+        178 24-MAY-99 223.984266 24-NOV-99 28-MAY-99 31-MAY-99                                                          
+        200 17-SEP-87 364.210072 17-MAR-88 18-SEP-87 30-SEP-87                                                          
+        201 17-FEB-96 263.210072 17-AUG-96 23-FEB-96 29-FEB-96                                                          
+        202 17-AUG-97 245.210072 17-FEB-98 22-AUG-97 31-AUG-97                                                          
+        205 07-JUN-94 283.532653 07-DEC-94 10-JUN-94 30-JUN-94                                                          
+        206 07-JUN-94 283.532653 07-DEC-94 10-JUN-94 30-JUN-94                                                          
+
+20 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id, hire_date, months_between (sysdate, hire_date) TENURE,
+  2  add_months (hire_date, 6) REVIEW, next_day (hire_date, 'FRIDAY'),
+  3  last_day(hire_date)
+  4* from employees
+HR@orcl>desc employees;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ EMPLOYEE_ID                                                       NOT NULL NUMBER(6)
+ FIRST_NAME                                                                 VARCHAR2(20)
+ LAST_NAME                                                         NOT NULL VARCHAR2(25)
+ EMAIL                                                             NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                                               VARCHAR2(20)
+ HIRE_DATE                                                         NOT NULL DATE
+ JOB_ID                                                            NOT NULL VARCHAR2(10)
+ SALARY                                                                     NUMBER(8,2)
+ COMMISSION_PCT                                                             NUMBER(2,2)
+ MANAGER_ID                                                                 NUMBER(6)
+ DEPARTMENT_ID                                                              NUMBER(4)
+
+HR@orcl>select employee_id, rpad(last_name, 15, '*'),
+  2  		lpad(salary, 15, '*')
+  3  from employees;
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        100 King***********                                                                                             
+**********24000                                                                                                         
+                                                                                                                        
+        101 Kochhar********                                                                                             
+**********17000                                                                                                         
+                                                                                                                        
+        102 De Haan********                                                                                             
+**********17000                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        103 Hunold*********                                                                                             
+***********9000                                                                                                         
+                                                                                                                        
+        104 Ernst**********                                                                                             
+***********6000                                                                                                         
+                                                                                                                        
+        107 Lorentz********                                                                                             
+***********4200                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        124 Mourgos********                                                                                             
+***********5800                                                                                                         
+                                                                                                                        
+        141 Rajs***********                                                                                             
+***********3500                                                                                                         
+                                                                                                                        
+        142 Davies*********                                                                                             
+***********3100                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        143 Matos**********                                                                                             
+***********2600                                                                                                         
+                                                                                                                        
+        144 Vargas*********                                                                                             
+***********2500                                                                                                         
+                                                                                                                        
+        149 Zlotkey********                                                                                             
+**********10500                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        174 Abel***********                                                                                             
+**********11000                                                                                                         
+                                                                                                                        
+        176 Taylor*********                                                                                             
+***********8600                                                                                                         
+                                                                                                                        
+        178 Grant**********                                                                                             
+***********7000                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        200 Whalen*********                                                                                             
+***********4400                                                                                                         
+                                                                                                                        
+        201 Hartstein******                                                                                             
+**********13000                                                                                                         
+                                                                                                                        
+        202 Fay************                                                                                             
+***********6000                                                                                                         
+                                                                                                                        
+
+EMPLOYEE_ID RPAD(LAST_NAME,15,'*')                                                                                      
+----------- ------------------------------------------------------------                                                
+LPAD(SALARY,15,'*')                                                                                                     
+------------------------------------------------------------                                                            
+        205 Higgins********                                                                                             
+**********12000                                                                                                         
+                                                                                                                        
+        206 Gietz**********                                                                                             
+***********8300                                                                                                         
+                                                                                                                        
+
+20 rows selected.
+
+HR@orcl>cle scr
+HR@orcl>select sysdate form dual;
+select sysdate form dual
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1* select sysdate from dual
+HR@orcl>/
+
+SYSDATE                                                                                                                 
+---------                                                                                                               
+23-JAN-18                                                                                                               
+
+HR@orcl>select to_char(sysdate,'yyyy/mm/dd hh24:mi:ss') today
+  2  from dual;
+
+TODAY                                                                                                                   
+-------------------                                                                                                     
+2018/01/23 12:31:58                                                                                                     
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mon/dd hh24:mi:ss') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+-----------------------------                                                                                           
+2018/jan/23 12:33:03                                                                                                    
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/MON/dd hh24:mi:ss') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+-----------------------------                                                                                           
+2018/JAN/23 12:33:29                                                                                                    
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/MONth/dd hh24:mi:ss') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+-----------------------------------------------------                                                                   
+2018/JANUARY  /23 12:33:45                                                                                              
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyysp/MON/dd hh24:mi:ss') today
+  2* from dual
+HR@orcl>
+HR@orcl>/
+
+TODAY                                                                                                                   
+-------------------------------------------------------------------                                                     
+two thousand eighteen/JAN/23 12:34:09                                                                                   
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss am') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+----------------------                                                                                                  
+2018/01/23 12:35:03 pm                                                                                                  
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss Day') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+--------------------------------------------------------                                                                
+2018/01/23 12:35:41 Tuesday                                                                                             
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss Dy') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+--------------------------------                                                                                        
+2018/01/23 12:36:09 Tue                                                                                                 
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss Dy w') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+----------------------------------                                                                                      
+2018/01/23 12:36:41 Tue 4                                                                                               
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss Dy ww') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+-----------------------------------                                                                                     
+2018/01/23 12:38:28 Tue 04                                                                                              
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select to_char(sysdate,'yyyy/mm/dd hh:mi:ss Dy q') today
+  2* from dual
+HR@orcl>/
+
+TODAY                                                                                                                   
+----------------------------------                                                                                      
+2018/01/23 12:39:16 Tue 1                                                                                               
+
+HR@orcl>select employee_id, to_char(hire_date, 'yyyy/mm/dd hh24:mi:ss') hired
+  2  from employees
+  3  where department_id = 60;
+
+EMPLOYEE_ID HIRED                                                                                                       
+----------- -------------------                                                                                         
+        103 1990/01/03 00:00:00                                                                                         
+        104 1991/05/21 00:00:00                                                                                         
+        107 1999/02/07 00:00:00                                                                                         
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id,hire_date, to_char(hire_date, 'mm') hired
+  2  from employees
+  3* where department_id = 60
+HR@orcl>/
+
+EMPLOYEE_ID HIRE_DATE HI                                                                                                
+----------- --------- --                                                                                                
+        103 03-JAN-90 01                                                                                                
+        104 21-MAY-91 05                                                                                                
+        107 07-FEB-99 02                                                                                                
+
+HR@orcl>select employee_id , salary
+  2  from employees
+  3  where department_id = 80;
+
+EMPLOYEE_ID     SALARY                                                                                                  
+----------- ----------                                                                                                  
+        149      10500                                                                                                  
+        174      11000                                                                                                  
+        176       8600                                                                                                  
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id , to_char(salary,'$999,999')
+  2  from employees
+  3* where department_id = 80
+HR@orcl>/
+
+EMPLOYEE_ID TO_CHAR(S                                                                                                   
+----------- ---------                                                                                                   
+        149   $10,500                                                                                                   
+        174   $11,000                                                                                                   
+        176    $8,600                                                                                                   
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id , to_char(salary,'$099,999')
+  2  from employees
+  3* where department_id = 80
+HR@orcl>/
+
+EMPLOYEE_ID TO_CHAR(S                                                                                                   
+----------- ---------                                                                                                   
+        149  $010,500                                                                                                   
+        174  $011,000                                                                                                   
+        176  $008,600                                                                                                   
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id , to_char(salary,'l099,999')
+  2  from employees
+  3* where department_id = 80
+HR@orcl>/
+
+EMPLOYEE_ID TO_CHAR(SALARY,'L0                                                                                          
+----------- ------------------                                                                                          
+        149           $010,500                                                                                          
+        174           $011,000                                                                                          
+        176           $008,600                                                                                          
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id , to_char(salary,'l999,999.99')
+  2  from employees
+  3* where department_id = 80
+HR@orcl>/
+
+EMPLOYEE_ID TO_CHAR(SALARY,'L999,                                                                                       
+----------- ---------------------                                                                                       
+        149            $10,500.00                                                                                       
+        174            $11,000.00                                                                                       
+        176             $8,600.00                                                                                       
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  select employee_id , to_char(salary,'l999.999,99')
+  2  from employees
+  3* where department_id = 80
+HR@orcl>/
+select employee_id , to_char(salary,'l999.999,99')
+                                    *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+HR@orcl>vietnam's
+SP2-0042: unknown command "vietnam's" - rest of line ignored.
+HR@orcl>spool off

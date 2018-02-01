@@ -1,0 +1,144 @@
+HR@orcl>desc customer
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ID                                                                NOT NULL NUMBER(4)
+ NAME                                                              NOT NULL VARCHAR2(20)
+ GENDER                                                            NOT NULL CHAR(1)
+
+HR@orcl>INSERT INTO customer
+  2  VALUES(&id,INITCAP('&name'), UPPER('&gender'));
+Enter value for id: 2345
+Enter value for name: david
+Enter value for gender: m
+old   2: VALUES(&id,INITCAP('&name'), UPPER('&gender'))
+new   2: VALUES(2345,INITCAP('david'), UPPER('m'))
+
+1 row created.
+
+HR@orcl>/
+Enter value for id: 4567
+Enter value for name: janet
+Enter value for gender: f
+old   2: VALUES(&id,INITCAP('&name'), UPPER('&gender'))
+new   2: VALUES(4567,INITCAP('janet'), UPPER('f'))
+
+1 row created.
+
+HR@orcl>/
+Enter value for id: 6789
+Enter value for name: henry
+Enter value for gender: m
+old   2: VALUES(&id,INITCAP('&name'), UPPER('&gender'))
+new   2: VALUES(6789,INITCAP('henry'), UPPER('m'))
+
+1 row created.
+
+HR@orcl>select * from customer;
+
+        ID NAME                 G                                                                                       
+---------- -------------------- -                                                                                       
+      2345 David                M                                                                                       
+      4567 Janet                F                                                                                       
+      6789 Henry                M                                                                                       
+
+HR@orcl>/
+
+        ID NAME                 G                                                                                       
+---------- -------------------- -                                                                                       
+      2345 David                M                                                                                       
+      4567 Janet                F                                                                                       
+      6789 Henry                M                                                                                       
+
+HR@orcl>desc orders;
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ORDER_ID                                                          NOT NULL NUMBER(4)
+ PROD_ID                                                           NOT NULL VARCHAR2(10)
+ AMOUNT                                                                     NUMBER(2)
+ CUST_ID                                                                    NUMBER(4)
+
+HR@orcl>INSERT INTO orders
+  2  VALUES(1001, 'T987', 3, 2345);
+
+1 row created.
+
+HR@orcl>INSERT INTO orders
+  2  VALUES(1002, 'W654', 2, 6789);
+
+1 row created.
+
+HR@orcl>INSERT INTO orders
+  2  VALUES(1003, '0432', 10, 3423);
+INSERT INTO orders
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (HR.ORD_CUSTID_FK) violated - parent key not found 
+
+
+HR@orcl>commit;
+
+Commit complete.
+
+HR@orcl>SELECT * FROM orders;
+
+  ORDER_ID PROD_ID        AMOUNT    CUST_ID                                                                             
+---------- ---------- ---------- ----------                                                                             
+      1001 T987                3       2345                                                                             
+      1002 W654                2       6789                                                                             
+
+HR@orcl>SELECT * FROM orders;
+
+  ORDER_ID PROD_ID        AMOUNT    CUST_ID                                                                             
+---------- ---------- ---------- ----------                                                                             
+      1001 T987                3       2345                                                                             
+      1002 W654                2       6789                                                                             
+
+HR@orcl>delete from customer;
+delete from customer
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (HR.ORD_CUSTID_FK) violated - child record found 
+
+
+HR@orcl>delete from customer
+  2  where id = 2345;
+delete from customer
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (HR.ORD_CUSTID_FK) violated - child record found 
+
+
+HR@orcl>update orders
+  2  set cust_id = null
+  3  where cust_id = 2345;
+
+1 row updated.
+
+HR@orcl>delete from customer
+  2  where id = 2345;
+
+1 row deleted.
+
+HR@orcl>selet * from customer;
+SP2-0734: unknown command beginning "selet * fr..." - rest of line ignored.
+HR@orcl>select * from customer;
+
+        ID NAME                 G                                                                                       
+---------- -------------------- -                                                                                       
+      4567 Janet                F                                                                                       
+      6789 Henry                M                                                                                       
+
+HR@orcl>desc order
+ERROR:
+ORA-00931: missing identifier 
+
+
+HR@orcl>desc orders
+ Name                                                              Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ORDER_ID                                                          NOT NULL NUMBER(4)
+ PROD_ID                                                           NOT NULL VARCHAR2(10)
+ AMOUNT                                                                     NUMBER(2)
+ CUST_ID                                                                    NUMBER(4)
+
+HR@orcl>exit

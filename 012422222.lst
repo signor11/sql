@@ -1,0 +1,203 @@
+HR@orcl>SELECT employee_id FROM employees
+  2  UNION
+  3  SELECT employee_id FROM job_history;
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        100                                                                                                             
+        101                                                                                                             
+        102                                                                                                             
+        103                                                                                                             
+        104                                                                                                             
+        107                                                                                                             
+        114                                                                                                             
+        122                                                                                                             
+        124                                                                                                             
+        141                                                                                                             
+        142                                                                                                             
+
+EMPLOYEE_ID                                                                                                             
+-----------                                                                                                             
+        143                                                                                                             
+        144                                                                                                             
+        149                                                                                                             
+        174                                                                                                             
+        176                                                                                                             
+        178                                                                                                             
+        200                                                                                                             
+        201                                                                                                             
+        202                                                                                                             
+        205                                                                                                             
+        206                                                                                                             
+
+22 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, department_id  FROM employees
+  2  UNION
+  3* SELECT employee_id, department_id  FROM job_history
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        100            90                                                                                               
+        101            90                                                                                               
+        101           110                                                                                               
+        102            60                                                                                               
+        102            90                                                                                               
+        103            60                                                                                               
+        104            60                                                                                               
+        107            60                                                                                               
+        114            50                                                                                               
+        122            50                                                                                               
+        124            50                                                                                               
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        141            50                                                                                               
+        142            50                                                                                               
+        143            50                                                                                               
+        144            50                                                                                               
+        149            80                                                                                               
+        174            80                                                                                               
+        176            80                                                                                               
+        178                                                                                                             
+        200            10                                                                                               
+        200            90                                                                                               
+        201            20                                                                                               
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        202            20                                                                                               
+        205           110                                                                                               
+        206           110                                                                                               
+
+25 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, department_id  FROM employees
+  2  UNION ALL
+  3* SELECT employee_id, department_id  FROM job_history
+HR@orcl>/
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        100            90                                                                                               
+        101            90                                                                                               
+        102            90                                                                                               
+        103            60                                                                                               
+        104            60                                                                                               
+        107            60                                                                                               
+        124            50                                                                                               
+        141            50                                                                                               
+        142            50                                                                                               
+        143            50                                                                                               
+        144            50                                                                                               
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        149            80                                                                                               
+        174            80                                                                                               
+        176            80                                                                                               
+        178                                                                                                             
+        200            10                                                                                               
+        201            20                                                                                               
+        202            20                                                                                               
+        205           110                                                                                               
+        206           110                                                                                               
+        102            60                                                                                               
+        101           110                                                                                               
+
+EMPLOYEE_ID DEPARTMENT_ID                                                                                               
+----------- -------------                                                                                               
+        101           110                                                                                               
+        201            20                                                                                               
+        114            50                                                                                               
+        122            50                                                                                               
+        200            90                                                                                               
+        176            80                                                                                               
+        176            80                                                                                               
+        200            90                                                                                               
+
+30 rows selected.
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, department_id  FROM employees
+  2  UNION ALL
+  3* SELECT employee_id FROM job_history
+HR@orcl>/
+SELECT employee_id, department_id  FROM employees
+*
+ERROR at line 1:
+ORA-01789: query block has incorrect number of result columns 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id, department_id  FROM employees
+  2  UNION ALL
+  3* SELECT employee_id, start_date FROM job_history
+HR@orcl>/
+SELECT employee_id, department_id  FROM employees
+                    *
+ERROR at line 1:
+ORA-01790: expression must have same datatype as corresponding expression 
+
+
+HR@orcl>ed
+Wrote file afiedt.buf
+
+  1  SELECT employee_id empno, department_id  FROM employees
+  2  UNION ALL
+  3* SELECT employee_id, department_id deptno  FROM job_history
+HR@orcl>/
+
+     EMPNO DEPARTMENT_ID                                                                                                
+---------- -------------                                                                                                
+       100            90                                                                                                
+       101            90                                                                                                
+       102            90                                                                                                
+       103            60                                                                                                
+       104            60                                                                                                
+       107            60                                                                                                
+       124            50                                                                                                
+       141            50                                                                                                
+       142            50                                                                                                
+       143            50                                                                                                
+       144            50                                                                                                
+
+     EMPNO DEPARTMENT_ID                                                                                                
+---------- -------------                                                                                                
+       149            80                                                                                                
+       174            80                                                                                                
+       176            80                                                                                                
+       178                                                                                                              
+       200            10                                                                                                
+       201            20                                                                                                
+       202            20                                                                                                
+       205           110                                                                                                
+       206           110                                                                                                
+       102            60                                                                                                
+       101           110                                                                                                
+
+     EMPNO DEPARTMENT_ID                                                                                                
+---------- -------------                                                                                                
+       101           110                                                                                                
+       201            20                                                                                                
+       114            50                                                                                                
+       122            50                                                                                                
+       200            90                                                                                                
+       176            80                                                                                                
+       176            80                                                                                                
+       200            90                                                                                                
+
+30 rows selected.
+
+HR@orcl>spool off
